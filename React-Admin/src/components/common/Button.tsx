@@ -12,6 +12,7 @@ interface ButtonProps {
   rounded?: boolean;
   disabled?: boolean;
   className?: string;
+  onClick: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({

@@ -1,6 +1,16 @@
-import { Fragment } from "react"; //component that allows extra props without creating a DOM element like div
+import react, { Fragment } from "react";
+import { Feedback } from "../../models/Feedback";
 
-function Table({ data, config, keyFn }) {
+export interface TableProps {
+    data: any[];
+    config: {
+        label: string;
+        render: (feedback: Feedback) => React.ReactNode;
+      }[];
+    keyFn: (data: Feedback) => string;
+}
+
+const Table: React.FC<TableProps> = ({ data, config, keyFn }) => {
 
     const renderedHeaders = config.map((column) => {
         if (column.header) { 
@@ -36,4 +46,4 @@ function Table({ data, config, keyFn }) {
     );
 }
 
-export default Table;
+export { Table }

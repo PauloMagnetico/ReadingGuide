@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../components/common/Button";
-import Table from "../components/common/Table";
+import {Table, TableProps } from "../components/common/Table";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { IconButton } from "@mui/material";
@@ -9,7 +9,7 @@ import FeedbackShow from "../components/FeedbackShow";
 import FeedbackStatus from "../components/FeedbackStatus";
 import { Feedback } from "../models/Feedback";
 
-const AdminPage: React.FC = () =>{
+const AdminPage: React.FC = () => {
     const [feedbackList, setFeedbackList] = useState<Feedback[]>([]);
     const [selectedFeedback, setSelectedFeedback] = useState<Feedback>();
 
@@ -29,7 +29,7 @@ const AdminPage: React.FC = () =>{
         }
     };
 
-    const handleDeleteFeedback = async (feedbackId) => {
+    const handleDeleteFeedback = async (feedbackId: Feedback["_id"]) => {
         try {
             const response = await fetch(`https://192.168.0.120:3000/api/feedback/${feedbackId}`, {
                 method: 'DELETE',
@@ -49,7 +49,7 @@ const AdminPage: React.FC = () =>{
         }
     };
 
-    const handleUpdateFeedback = async (feedbackId, updatedData) => {
+    const handleUpdateFeedback = async (feedbackId: Feedback["_id"], updatedData: Feedback) => {
         try {
             const response = await fetch(`https://192.168.0.120:3000/api/feedback/${feedbackId}`, {
                 method: 'PUT', // or 'PATCH' depending on your API
@@ -80,7 +80,7 @@ const AdminPage: React.FC = () =>{
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
+
             // Process the response as a Blob
             const blob = await response.blob();
             const downloadUrl = window.URL.createObjectURL(blob);
@@ -104,7 +104,7 @@ const AdminPage: React.FC = () =>{
         setSelectedFeedback(null);
     };
 
-    const config = [
+    const config: TableProps['config'] = [
         {
             label: 'text',
             render: (feedback) => {
@@ -136,7 +136,7 @@ const AdminPage: React.FC = () =>{
         }
     ];
 
-    const keyFn = (feedback) => {
+    const keyFn: TableProps['keyFn'] = (feedback) => {
         return feedback._id;
     };
 
