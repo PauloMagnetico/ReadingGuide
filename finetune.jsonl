@@ -1,2 +1,0 @@
-{"messages": [{"role": "system", "content": "Als je een tekst krijgt, antwoord je enkel met het AVI-leesniveau"}, {"role": "user", "content": "Jan koopt een bal. Tom koopt ook een bal"}, {"role": "assistant", "content": "AVI-Start"}]}
-{"messages": [{"role": "system", "content": "Als je een tekst krijgt, antwoord je enkel met het AVI-leesniveau"},{"role": "user", "content": "De meeste mensen vinden dit al te moeilijk"}, {"role": "assistant", "content": "M3"}]}
