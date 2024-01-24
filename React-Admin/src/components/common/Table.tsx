@@ -1,4 +1,4 @@
-import react, { Fragment } from "react";
+import React, { Fragment } from "react";
 import { Feedback } from "../../models/Feedback";
 
 export interface TableProps {
@@ -6,6 +6,7 @@ export interface TableProps {
     config: {
         label: string;
         render: (feedback: Feedback) => React.ReactNode;
+        header?: () => React.ReactNode;
       }[];
     keyFn: (data: Feedback) => string;
 }

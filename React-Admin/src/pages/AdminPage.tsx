@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../components/common/Button";
-import {Table, TableProps } from "../components/common/Table";
+import { Table, TableProps } from "../components/common/Table";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { IconButton } from "@mui/material";
@@ -11,7 +11,7 @@ import { Feedback } from "../models/Feedback";
 
 const AdminPage: React.FC = () => {
     const [feedbackList, setFeedbackList] = useState<Feedback[]>([]);
-    const [selectedFeedback, setSelectedFeedback] = useState<Feedback>();
+    const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null);
 
     const getAllFeedback = async () => {
         try {
@@ -96,7 +96,7 @@ const AdminPage: React.FC = () => {
         }
     };
 
-    const handleShowFeedback = (listItem) => {
+    const handleShowFeedback = (listItem: Feedback) => {
         setSelectedFeedback(listItem);
     };
 
