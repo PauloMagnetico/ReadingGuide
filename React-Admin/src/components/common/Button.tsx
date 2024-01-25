@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-interface ButtonProps {
+type ButtonProps = {
   children: React.ReactNode;
   primary?: boolean;
   secondary?: boolean;
@@ -56,3 +56,4 @@ const Button: React.FC<ButtonProps> = ({
 }
 
 export default Button;
+export type { ButtonProps };

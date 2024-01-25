@@ -1,14 +1,13 @@
 import React, { Fragment } from "react";
-import { Feedback } from "../../models/Feedback";
 
-export interface TableProps {
+type TableProps = {
     data: any[];
     config: {
         label: string;
-        render: (feedback: Feedback) => React.ReactNode;
+        render: (item: any) => React.ReactNode;
         header?: () => React.ReactNode;
       }[];
-    keyFn: (data: Feedback) => string;
+    keyFn: (data: any) => string;
 }
 
 const Table: React.FC<TableProps> = ({ data, config, keyFn }) => {
@@ -47,4 +46,5 @@ const Table: React.FC<TableProps> = ({ data, config, keyFn }) => {
     );
 }
 
-export { Table }
+export default Table;
+export type { TableProps };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../components/common/Button";
-import { Table, TableProps } from "../components/common/Table";
+import Table, { TableProps } from "../components/common/Table";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { IconButton } from "@mui/material";
