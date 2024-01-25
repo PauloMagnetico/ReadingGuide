@@ -1,4 +1,3 @@
-import './App.css';
 import AdminPage from './pages/AdminPage';
 
 function App() {
