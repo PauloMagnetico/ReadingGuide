@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -6,10 +5,15 @@ import IconButton from '@mui/material/IconButton';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Link from './common/Link';
 
-export default function NavBar() {
+const NavBar = () => {
     return (
         <AppBar position="sticky">
             <Toolbar>
+                <Link
+                    className={"text-white"}
+                    to='/infoPage'>
+                    <InfoOutlinedIcon />
+                </Link>
                 <IconButton
                     size="large"
                     edge="start"
@@ -23,6 +27,15 @@ export default function NavBar() {
                     Leeswijzer
                 </Typography >
             </Toolbar>
-        </AppBar>
+        </AppBar >
     );
-}
+};
+
+export default NavBar;
+
+
+
+
+
+
+

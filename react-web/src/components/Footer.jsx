@@ -3,7 +3,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-700 text-white py-4">
+        <footer className="bg-gray-700 text-white py-4 fixed bottom-0 w-full">
             <div className="container mx-auto flex justify-center items-center space-x-2">
                 <p>&copy; {new Date().getFullYear()} PaoloMagnetico</p>
                 <a

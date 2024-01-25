@@ -5,9 +5,10 @@ import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFil
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import { sendToChatGPT, extractTextFromImage } from "../api/service";
+import InfoDrawer from "../components/InfoDrawer";
 // import Alert from "../components/common/Alert";
 
-function StreamingPage2() {
+function StreamingPage() {
     const videoRef = useRef(null);
     const captureCanvasRef = useRef(null);
     const boundingBoxCanvasRef = useRef(null);
@@ -19,6 +20,7 @@ function StreamingPage2() {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('info');
+    const [infoDrawerOpen, setInfoDrawerOpen] = useState(false);
 
     useEffect(() => {
         return () => {
@@ -28,6 +30,14 @@ function StreamingPage2() {
         };
     }, [isStreaming]);
 
+    const handleDrawerOpen = () => {
+        setInfoDrawerOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setInfoDrawerOpen(false);
+    };
+    
     const setAlert = (newSeverity, newMessage) => {
         setAlertState({
             message: newMessage,
@@ -193,7 +203,10 @@ function StreamingPage2() {
 
     return (
         <div>
-            <Alert severity={alertState.severity} className='mb-2 rounded'>{alertState.message}</Alert>
+            <div style={{ position: 'relative' }} >
+                <InfoDrawer open={infoDrawerOpen} onClose={handleDrawerClose} />
+            </div>
+            <Alert onClick={handleDrawerOpen} severity={alertState.severity} className='mb-2 rounded'>{alertState.message}</Alert>
             <div className="my-1 relative rounded border-2 border-black w-full h-0 pb-100percent">
                 <video
                     className="absolute w-full h-full object-cover"
@@ -232,4 +245,4 @@ function StreamingPage2() {
     );
 };
 
-export default StreamingPage2;
+export default StreamingPage;
