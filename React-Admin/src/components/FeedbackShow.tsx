@@ -1,7 +1,8 @@
-// import Modal from "./common/Modal";
+import React from "react";
+import Modal from "./common/Modal";
 import Button from "./common/Button";
 import { Feedback } from "../models/Feedback";
-import React from "react";
+import { FeedbackReviewStatus } from "../models/enums";
 
 type FeedbackShowProps = {
     feedback: Feedback,
@@ -12,7 +13,7 @@ type FeedbackShowProps = {
 const FeedbackShow: React.FC<FeedbackShowProps> = ({ feedback, handleClose, handleUpdateFeedback }) => {
 
     const handleChangeStatus = () => {
-        const updatedFeedback = {...feedback, status: 'REVIEWED'};
+        const updatedFeedback = {...feedback, status: FeedbackReviewStatus.reviewed};
         handleUpdateFeedback(feedback._id, updatedFeedback);
     };
     
@@ -24,13 +25,13 @@ const FeedbackShow: React.FC<FeedbackShowProps> = ({ feedback, handleClose, hand
         </div>
 
     return (
-        // <Modal onClose={handleClose} actionBar={actionBar}>
+        <Modal onClose={handleClose} actionBar={actionBar}>
             <div>
                 <p>Text: {feedback.text}</p>
                 <p>aviGrade: {feedback.calculatedAviGrade}</p>
                 <p className="text-bold">Status: {feedback.status}</p>
             </div>
-        // </Modal>
+        </Modal>
     );
 };
 

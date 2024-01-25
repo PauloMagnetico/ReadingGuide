@@ -1,7 +1,13 @@
 import ReactDOM from 'react-dom'
 import { useEffect } from 'react';
 
-function Modal({ children, onClose, actionBar }) {
+type ModalProps = {
+    children: React.ReactNode,
+    onClose: () => void,
+    actionBar: React.ReactNode
+}
+
+const Modal: React.FC<ModalProps> = ({ children, onClose, actionBar }) => {
 
     //block scrolling when modal opens
     useEffect(() => {
@@ -24,8 +30,9 @@ function Modal({ children, onClose, actionBar }) {
                 </div>
             </div>
         </div>,
-        document.querySelector('.modal-container')
+        document.querySelector('.modal-container')!
     );
 }
 
 export default Modal;
+export type { ModalProps };
