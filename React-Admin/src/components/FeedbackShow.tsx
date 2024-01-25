@@ -1,7 +1,15 @@
-import Modal from "./common/Modal";
+// import Modal from "./common/Modal";
 import Button from "./common/Button";
+import { Feedback } from "../models/Feedback";
+import React from "react";
 
-function FeedbackShow({ feedback, handleClose, handleUpdateFeedback }) {
+type FeedbackShowProps = {
+    feedback: Feedback,
+    handleClose: () => void,
+    handleUpdateFeedback: (id: string, feedback: Feedback) => void
+};
+
+const FeedbackShow: React.FC<FeedbackShowProps> = ({ feedback, handleClose, handleUpdateFeedback }) => {
 
     const handleChangeStatus = () => {
         const updatedFeedback = {...feedback, status: 'REVIEWED'};
@@ -16,14 +24,15 @@ function FeedbackShow({ feedback, handleClose, handleUpdateFeedback }) {
         </div>
 
     return (
-        <Modal onClose={handleClose} actionBar={actionBar}>
+        // <Modal onClose={handleClose} actionBar={actionBar}>
             <div>
                 <p>Text: {feedback.text}</p>
-                <p>aviGrade: {feedback.aviGrade}</p>
+                <p>aviGrade: {feedback.calculatedAviGrade}</p>
                 <p className="text-bold">Status: {feedback.status}</p>
             </div>
-        </Modal>
+        // </Modal>
     );
 };
 
 export default FeedbackShow;
+export type { FeedbackShowProps };
