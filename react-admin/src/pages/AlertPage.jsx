@@ -1,4 +1,4 @@
-import Alert from "../components/common/Alert";
+import Alert from '../components/common/Alert';
 
 function AlertPage() {
     return (
