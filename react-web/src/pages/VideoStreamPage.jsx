@@ -193,7 +193,7 @@ function StreamingPage() {
     return (
         <div>
             <Alert severity={alertState.severity} className='mb-2 rounded'>{alertState.message}</Alert>
-            <div className="bg-gray-100 my-1 relative rounded border-2 border-black w-full h-0 pb-100percent">
+            <div className="bg-gray-100 my-1 relative rounded-xl border-double border-8 border-palette_4 shadow-md w-full h-0 pb-100percent">
                 <video
                     className="absolute w-full h-full object-cover"
                     ref={videoRef}
