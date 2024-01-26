@@ -8,21 +8,20 @@ import Link from './common/Link';
 const NavBar = () => {
     return (
         <AppBar position="sticky">
-            <Toolbar>
+            <Toolbar className='bg-palette_3'>
                 <Link
-                    className={"text-white"}
+                    className={"text-white mr-2"}
                     to='/infoPage'>
-                    <InfoOutlinedIcon />
-                </Link>
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
                     sx={{ mr: 2 }}
-                >
-                    <InfoOutlinedIcon />
-                </IconButton>
+                    >
+                        <InfoOutlinedIcon />
+                    </IconButton>
+                </Link>
                 <Typography variant="h6">
                     Leeswijzer
                 </Typography >

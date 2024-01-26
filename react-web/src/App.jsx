@@ -9,7 +9,7 @@ function App() {
   return (
     <div className='w-full max-w-lg mx-auto'>
       <NavBar />
-      <div className="rounded p-3 box-border">
+      <div className="rounded p-3 box-border bg-palette_1">
         <Route path="/infoPage">
           <InfoPage />
         </Route>
