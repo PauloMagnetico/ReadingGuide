@@ -1,14 +1,21 @@
+import React from 'react';
 import classNames from 'classnames';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 
-function Alert({
+type AlertProps = {
+  children: React.ReactNode;
+  severity: 'info' | 'warning' | 'error' | 'success';
+  className?: string;
+}
+
+const Alert: React.FC<AlertProps> = ({
   children,
   severity, // 'info', 'warning', 'error', or 'success'
   ...rest
-}) {
+}) => {
   const classes = classNames(
     rest.className,
     'flex items-center border px-4 py-3 rounded relative',
