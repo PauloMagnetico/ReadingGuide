@@ -15,7 +15,7 @@ const renderedLinks = links.map((link) => {
     )
 });
 
-const ResponsiveNav = () => {
+const ResponsiveNav: React.FC = () => {
     return (
         <div className="hidden rounded bg-gray-800 text-white p-4 md:w-64 md:min-h-screen md:flex md:flex-col">
             {renderedLinks}

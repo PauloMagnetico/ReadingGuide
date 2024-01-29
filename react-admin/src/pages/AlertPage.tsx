@@ -1,6 +1,7 @@
+import React from 'react';
 import Alert from '../components/common/Alert';
 
-function AlertPage() {
+const AlertPage: React.FC = () => {
     return (
         <div>
             <Alert severity='error'>This is an error alert</Alert>
@@ -9,6 +10,6 @@ function AlertPage() {
             <Alert severity='success'>This is an success alert</Alert>
         </div>
     )
-}
+};
 
 export default AlertPage;
