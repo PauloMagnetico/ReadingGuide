@@ -27,7 +27,7 @@ const Alert: React.FC<AlertProps> = ({
     }
   );
 
-  const Icon = severity === 'info' ? InfoOutlinedIcon :
+  const Icon: React.ComponentType<{ className?: string }> | null = severity === 'info' ? InfoOutlinedIcon :
               severity === 'warning' ? WarningAmberRoundedIcon :
               severity === 'error' ? ErrorOutlineRoundedIcon :
               severity === 'success' ? CheckCircleOutlineOutlinedIcon : null;
