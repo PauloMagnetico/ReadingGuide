@@ -11,7 +11,7 @@ interface NavigationProviderProps {
     children: ReactNode;
 }
 
-function NavigationProvider({ children }: NavigationProviderProps) {
+const NavigationProvider = ({ children }: NavigationProviderProps) => {
     const [currentPath, setCurrentPath] = useState<string>(window.location.pathname);
 
     useEffect(() => {
