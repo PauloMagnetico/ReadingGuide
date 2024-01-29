@@ -4,19 +4,31 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import FeedbackBar from './feedbackBar';
 import { useState } from "react";
 import { createFeedback } from '../api/service';
+import { AviGrade, Severity } from '../models/enums';
 
-export default function Feedback({ extractedText, calculatedGrade, showSnackBar }) {
+interface FeedbackProps {
+    extractedText: string,
+    calculatedGrade: AviGrade,
+    showSnackBar: (severity: Severity, message: string) => void;
+};
 
+const Feedback: React.FC<FeedbackProps> = ({ 
+    extractedText, 
+    calculatedGrade, 
+    showSnackBar 
+}) => {
     const [showFeedbackBar, setShowFeedbackBar] = useState(false);
 
     const handlePositiveFeedback = async () => {
         const result = await createFeedback(extractedText, calculatedGrade, calculatedGrade);
         if (result.success) {
             // If feedback creation was successful
-            showSnackBar('success', 'Thanks for the positive feedback');
+            showSnackBar(Severity.success, 'Thanks for the positive feedback');
         } else {
             // If there was an error in feedback creation
-            showSnackBar('error', 'Error submitting feedback: ' + result.error);
+            // Handle potential undefined result.error
+            const errorMessage = result.error ? result.error : "Unknown error occurred";
+            showSnackBar(Severity.error, 'Error submitting feedback: ' + errorMessage);
         }
     };
 
@@ -39,4 +51,7 @@ export default function Feedback({ extractedText, calculatedGrade, showSnackBar 
         </div>
     )
 }
+
+export default Feedback;
+
 
