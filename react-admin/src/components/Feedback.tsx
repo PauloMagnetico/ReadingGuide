@@ -1,7 +1,7 @@
 import IconButton from '@mui/material/IconButton';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
-import FeedbackBar from './feedbackBar';
+import FeedbackBar from './FeedbackBar';
 import { useState } from "react";
 import { createFeedback } from '../api/service';
 import { AviGrade, Severity } from '../models/enums';

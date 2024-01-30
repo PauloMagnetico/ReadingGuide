@@ -50,7 +50,7 @@ const StreamingPage: React.FC = () => {
                     setIsStreaming(true);
                     setAlert(Severity.info, 'Streaming');
 
-                    captureInterval.current = setInterval(async () => {
+                    captureInterval.current = window.setInterval(async () => {
                         const frameData = captureCroppedFrame();
 
                         try {
