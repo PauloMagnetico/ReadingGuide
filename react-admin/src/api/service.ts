@@ -14,7 +14,7 @@ export const sendToChatGPT = async (text: string): Promise<ApiResponseType> => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(text)
+            body: JSON.stringify({ text: text })
         });
 
         const data = await response.json();

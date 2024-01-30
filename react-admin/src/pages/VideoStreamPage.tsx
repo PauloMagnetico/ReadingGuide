@@ -12,7 +12,7 @@ const StreamingPage: React.FC = () => {
     const captureCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const boundingBoxCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const captureInterval = useRef<number | null>(null);
-    const [extractedText, setExtractedText] = useState('olalala');
+    const [extractedText, setExtractedText] = useState<string>('olalala');
     const [calculatedAviGrade, setCalculatedAvigrade] = useState<AviGrade | null>(AviGrade.M3);
     const [isStreaming, setIsStreaming] = useState(false);
     const [alertState, setAlertState] = useState({ severity: Severity.info, message: "Ready To Stream" })
@@ -83,7 +83,7 @@ const StreamingPage: React.FC = () => {
     // removed the check if there is a stream, because we check the videoRef instead
     // to match the types. If anything is broken revert to the original
     const handleStopStream = () => {
-        if (videoRef.current) {
+        if (videoRef.current && videoRef.current.srcObject) {
             const stream = videoRef.current.srcObject as MediaStream;
             stream.getTracks().forEach(track => track.stop());
             videoRef.current.srcObject = null;
