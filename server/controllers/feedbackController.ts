@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { Request, Response } from 'express';
+import Feedback from '../models/feedback';
 
-const Feedback = require('../models/feedback')
-
-module.exports.getAllFeedback = async (req, res) => {
+const getAllFeedback = async (req: Request, res: Response) => {
     try {
         // For pagination, you might use query parameters like 'page' and 'limit'
         // const { page = 1, limit = 10 } = req.query;
@@ -20,10 +20,10 @@ module.exports.getAllFeedback = async (req, res) => {
 };
 
 //create new Feedback
-module.exports.createFeedback = async (req, res) => {
+const createFeedback = async (req: Request, res: Response) => {
     try {
         const feedbackData = req.body.feedback; // Assuming the entire object is under the 'feedback' key
-        const feedback = new Feedback({
+        const feedback = Feedback.build({
             ...feedbackData,
             status: 'PENDING' // Preserving the status assignment
         });
@@ -39,7 +39,7 @@ module.exports.createFeedback = async (req, res) => {
     }
 };
 
-module.exports.deleteFeedback = async (req, res) => {
+const deleteFeedback = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
@@ -57,28 +57,23 @@ module.exports.deleteFeedback = async (req, res) => {
     }
 };
 
-module.exports.updateFeedback = async (req, res) => {
+const updateFeedback = async (req: Request, res: Response) => {
     const { id } = req.params;
-    
-    try {
-        // Assuming 'req.body' has the feedback data and not 'req.body.feedback'
-        const updatedFeedback = await Feedback.findByIdAndUpdate(id, req.body, { new: true });
 
-        // Check if the feedback was found and updated
+    try {
+        const updatedFeedback = await Feedback.findByIdAndUpdate(id, req.body, { new: true });
         if (!updatedFeedback) {
             return res.status(404).json({ message: "Feedback not found" });
-        }
-
-        // Send back the updated feedback
+        };
         return res.status(200).json(updatedFeedback);
     } catch (error) {
-        // Handle possible errors
-        return res.status(500).json({ message: error.message });
+        console.error('Error deleting feedback:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
 //endpoint that retrieves all reviewed feedback and writes it into a JSONL file in the format for finetuning ChatGPT
-module.exports.processReviewedFeedback = async (req, res) => {
+const processReviewedFeedback = async (req: Request, res: Response) => {
     try {
         const feedbackList = await Feedback.find({ status: 'REVIEWED' }).exec();
 
@@ -95,7 +90,7 @@ module.exports.processReviewedFeedback = async (req, res) => {
                     },
                     {
                         role: "assistant",
-                        content: feedback.aviGrade
+                        content: feedback.calculatedAvigrade
                     }
                 ]
             };
@@ -125,7 +120,9 @@ module.exports.processReviewedFeedback = async (req, res) => {
         });
     } catch (err) {
         console.error('Error processing reviewed feedback:', err);
-        res.status(500).json({ message: "Error processing reviewed feedback", error: err.message });
+        res.status(500).json({ message: "Error processing reviewed feedback", error: err});
     }
 };
+
+export { getAllFeedback, createFeedback, deleteFeedback, updateFeedback, processReviewedFeedback };
 

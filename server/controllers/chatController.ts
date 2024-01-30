@@ -1,11 +1,12 @@
-const axios = require('axios');
+import axios from 'axios';
+import { Request, Response } from 'express';
 
-exports.sendToChatGPT = (req, res) => {
+const sendToChatGPT = (req: Request, res: Response) => {
     const text = req.body.text;
     const apiKey = process.env.OPENAI_API_KEY;
     const endpoint = "https://api.openai.com/v1/chat/completions"; 
 
-    console.log('request recieved');
+    console.log('Chat GPT request recieved');
 
     axios.post(endpoint, {
         model: "gpt-3.5-turbo",
@@ -37,3 +38,5 @@ exports.sendToChatGPT = (req, res) => {
         res.status(500).json({ error: err.message });
     });
 };
+
+export { sendToChatGPT };
