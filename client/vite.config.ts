@@ -10,7 +10,7 @@ export default defineConfig({
       key: fs.readFileSync('server.key'), 
       cert: fs.readFileSync('server.cert'),
     },
-    port: 5174 // Replace 5174 with your desired port number
+    port: 5173
   },
   plugins: [react()],
 })

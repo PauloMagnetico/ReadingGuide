@@ -2,31 +2,22 @@ version: "3"
 services:
   web:
     build:
-      context: ./react-web
+      context: ./client
       dockerfile: Dockerfile
     ports: 
       - "5173:5173"
     volumes:
       - /usr/src/app/node_modules
-      - ./react-web:/usr/src/app
-  admin:
-    build:
-      context: ./react-admin
-      dockerfile: Dockerfile
-    ports: 
-      - "5174:5174"
-    volumes:
-      - /usr/src/app/node_modules
-      - ./react-admin:/usr/src/app
+      - ./client:/usr/src/app
   server:
     build:
-      context: ./API-server
+      context: ./server
       dockerfile: Dockerfile
     ports: 
       - "3000:3000"
     volumes:
       - /usr/src/app/node_modules
-      - ./API-server:/usr/src/app
+      - ./server:/usr/src/app
   mongodb:
     image: mongo:latest
     ports:
