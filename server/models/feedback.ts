@@ -6,9 +6,9 @@ import { aviGrades, feedbackStatus } from './enums';
 // that are reqyured to create a Feedback (for typescript)
 interface FeedbackAttrs {
     text: string;
-    calculatedAvigrade: string;
-    feedbackAvigrade: string;
-    status: string;
+    calculatedAvigrade: aviGrades;
+    feedbackAvigrade: aviGrades;
+    status: feedbackStatus;
 }
 
 // An interface that describes the properties
@@ -21,9 +21,9 @@ interface FeedbackModel extends mongoose.Model<FeedbackDoc> {
 // that a feedback document has
 interface FeedbackDoc extends mongoose.Document {
     text: string;
-    calculatedAvigrade: string;
-    feedbackAvigrade: string;
-    status: string;
+    calculatedAvigrade: aviGrades;
+    feedbackAvigrade: aviGrades;
+    status: feedbackStatus;
 };
 
 const feedbackSchema = new mongoose.Schema({

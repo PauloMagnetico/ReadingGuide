@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Request, Response } from 'express';
 import Feedback from '../models/feedback';
+import { aviGrades, feedbackStatus } from '../models/enums';
 
 const getAllFeedback = async (req: Request, res: Response) => {
     try {
@@ -25,7 +26,7 @@ const createFeedback = async (req: Request, res: Response) => {
         const feedbackData = req.body.feedback; // Assuming the entire object is under the 'feedback' key
         const feedback = Feedback.build({
             ...feedbackData,
-            status: 'PENDING' // Preserving the status assignment
+            status: feedbackStatus.PENDING // Preserving the status assignment
         });
 
         // Save the feedback to the database
@@ -75,7 +76,7 @@ const updateFeedback = async (req: Request, res: Response) => {
 //endpoint that retrieves all reviewed feedback and writes it into a JSONL file in the format for finetuning ChatGPT
 const processReviewedFeedback = async (req: Request, res: Response) => {
     try {
-        const feedbackList = await Feedback.find({ status: 'REVIEWED' }).exec();
+        const feedbackList = await Feedback.find({ status: feedbackStatus.REVIEWED }).exec();
 
         const jsonLines = feedbackList.map(feedback => {
             const dialog = {
