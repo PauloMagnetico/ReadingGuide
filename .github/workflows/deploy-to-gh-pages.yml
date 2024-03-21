@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '18'
+        node-version: '20'
 
     - name: Install Dependencies
       run: npm ci
@@ -25,14 +25,6 @@ jobs:
     - name: Build React App
       run: npm run build
       working-directory: ./client
-      
-    - name: List contents of client directory
-      run: ls -la client/
-      # This helps you verify that 'dist' directory exists after build
-
-    - name: List contents of client directory
-      run: ls -la
-      # This helps you verify that 'dist' directory exists after build
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.5
