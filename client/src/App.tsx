@@ -1,9 +1,11 @@
 import VideoStreamPage from './pages/VideoStreamPage';
 import NavBar from './components/NavBar';
-import Route from "./components/common/Route";
+// import Route from "./components/common/Route";
+// switch to react-router-dom for github pages
 import Footer from "./components/Footer"
 import InfoPage from './pages/InfoPage';
 import AdminPage from './pages/AdminPage';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
 
@@ -11,15 +13,13 @@ function App() {
     <div className='w-full max-w-lg mx-auto'>
       <NavBar />
       <div className="p-3 box-border bg-palette_1">
-        <Route path="/infoPage">
-          <InfoPage />
-        </Route>
-        <Route path="/adminPage">
-          <AdminPage />
-        </Route>
-        <Route path="/">
-          <VideoStreamPage />
-        </Route>
+        <Router basename="/">
+          <Routes>
+            <Route path="/infoPage" element={<InfoPage />} />
+            <Route path="/adminPage" element={<AdminPage />} />
+            <Route path="/" element={<VideoStreamPage />} />
+          </Routes>
+        </Router>
       </div>
       <Footer />
     </div>
