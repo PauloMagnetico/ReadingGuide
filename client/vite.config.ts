@@ -18,6 +18,9 @@ export default defineConfig({
     ...httpsConfig,
     port: 5173
   },
+  build: {
+    outDir: 'dist', // Make sure this is correctly set
+  },
   base: process.env.NODE_ENV === 'production' ? '/ReadingGuide/' : '/',
   plugins: [react()]
 })
