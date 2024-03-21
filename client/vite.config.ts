@@ -21,6 +21,6 @@ export default defineConfig({
   build: {
     outDir: 'dist', // Make sure this is correctly set
   },
-  // base: process.env.NODE_ENV === 'production' ? '/ReadingGuide/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/ReadingGuide/' : '/',
   plugins: [react()]
 })
