@@ -27,6 +27,7 @@ To get started, follow these steps:
 
 # 6. Todo List
 
-- [ ] Host on Github Pages
+- [x] Host on Github Pages
 - [ ] Host backend on google cloud run
 - [ ] Host mongoDB using Atlas
+- [ ] Create submodules for independen deployments
