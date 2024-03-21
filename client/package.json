@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://paulomagnetico.github.io/ReadingGuide/",
+
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
