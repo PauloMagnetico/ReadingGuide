@@ -1,6 +1,6 @@
 # 1. Introduction
 
-Welcome to the Reading Guide! This app will help you with classifying childrens book by reading difficulties.
+Welcome to the Reading Guide! This app will help you with classifying childrens book by reading difficulties. A version of the Front-end is hosted [here](https://paulomagnetico.github.io/ReadingGuide/), currently without working backend
 
 # 2. Run the App locally
 
