@@ -3,7 +3,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import Link from './common/Link';
+// import Link from './common/Link';
+// need to use react-router-dom for github pages
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     return (
