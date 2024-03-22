@@ -6,10 +6,11 @@ type ApiResponseType = {
     error?: string;
 };
 
+const serverUrl = process.env.NODE_ENV === 'production' ? process.env.SERVER_URL : "https://192.168.0.120:3000"
+
 export const sendToChatGPT = async (text: string): Promise<ApiResponseType> => {
-    const serverUrl = 'https://192.168.0.120:3000/api/chat';
     try {
-        const response = await fetch(serverUrl, {
+        const response = await fetch(`${serverUrl}/api/chat`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,13 +34,12 @@ export const sendToChatGPT = async (text: string): Promise<ApiResponseType> => {
 };
 
 export const extractTextFromImage = async (imageData: string): Promise<ApiResponseType> => {
-    const serverUrl = 'https://192.168.0.120:3000/api/image';
     if (!imageData) {
         return { success: false, error: 'No image data provided' };
     };
 
     try {
-        const response = await fetch(serverUrl, {
+        const response = await fetch(`${serverUrl}/api/image`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -68,13 +68,12 @@ export const createFeedback = async (
         feedbackAviGrade,
         calculatedAviGrade
     };
-    const serverUrl = 'https://192.168.0.120:3000/api/feedback';
     if (!feedback) {
         return { success: false, error: 'feedback' };
     };
 
     try {
-        const response = await fetch(serverUrl, {
+        const response = await fetch(`${serverUrl}/api/feedback`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

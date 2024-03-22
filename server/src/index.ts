@@ -9,16 +9,16 @@ import https from 'https';
 import fs from 'fs';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import { sendToChatGPT } from '../controllers/chatController';
-import { analyzeFrame } from '../controllers/imageController';
+import { sendToChatGPT } from './controllers/chatController';
+import { analyzeFrame } from './controllers/imageController';
 import {
   deleteFeedback,
   processReviewedFeedback,
   updateFeedback,
   getAllFeedback,
   createFeedback
-} from '../controllers/feedbackController';
-import { aviGrades } from '../models/enums';
+} from './controllers/feedbackController';
+import { aviGrades } from './models/enums';
 
 const dbUrl = process.env.DB_URL || 'mongodb://mongodb:27017/feedbackData'
 
@@ -77,11 +77,3 @@ server.listen(PORT, (err?: Error | null) => {
   }
 });
 
-// original JS code, but it doesn't work with TS for some reason
-// server.listen(PORT, '0.0.0.0', (err) => {
-//   if (err) {
-//     console.error('Error starting server:', err);
-//   } else {
-//     console.log(`Server is running on port ${PORT}`);
-//   }
-// });
