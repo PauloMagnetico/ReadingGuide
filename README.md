@@ -25,9 +25,11 @@ To get started, follow these steps:
 * the feedback can be viewed in the admin dashboard
 * the feedback can be exported in a format that can be used to train the GPT model
 
-# 6. Todo List
+# 4. Todo List
 
 - [x] Host on Github Pages
 - [x] Host backend on google cloud run
+- [x] Configure environments to manage connection
 - [ ] Host mongoDB using Atlas
-- [ ] Create submodules for independen deployments
+- [ ] ~~Create submodules for independen deployments~~
+- [ ] Make backend only accessible through frontend
