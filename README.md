@@ -28,6 +28,6 @@ To get started, follow these steps:
 # 6. Todo List
 
 - [x] Host on Github Pages
-- [ ] Host backend on google cloud run
+- [x] Host backend on google cloud run
 - [ ] Host mongoDB using Atlas
 - [ ] Create submodules for independen deployments

@@ -27,7 +27,7 @@ jobs:
     - name: Build React App
       run: npm run build
       env:
-        SERVER_URL: ${{ secrets.SERVER_URL }}
+        VITE_SERVER_URL: ${{ secrets.SERVER_URL }}
       working-directory: ./client
 
     - name: Deploy to GitHub Pages
