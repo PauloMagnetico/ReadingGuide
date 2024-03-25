@@ -11,7 +11,6 @@ const serverUrl = import.meta.env.PROD ? import.meta.env.VITE_SERVER_URL : "http
 console.log("serverUrl", serverUrl);
 console.log("import.meta.env", import.meta.env);
 console.log("import.meta.env.PROD", import.meta.env.PROD);
-console.log("import.meta.env.VITE_SERVER_URL", import.meta.env.VITE_SERVER_URL);
 
 export const sendToChatGPT = async (text: string): Promise<ApiResponseType> => {
     try {
