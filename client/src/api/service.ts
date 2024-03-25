@@ -8,6 +8,7 @@ type ApiResponseType = {
 
 //the way to import environment variables in Vite
 const serverUrl = import.meta.env.PROD ? import.meta.env.VITE_SERVER_URL : "https://192.168.0.120:3000";
+console.log("serverUrl", serverUrl);
 
 export const sendToChatGPT = async (text: string): Promise<ApiResponseType> => {
     try {
