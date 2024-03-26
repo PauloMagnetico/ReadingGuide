@@ -8,30 +8,26 @@ import Panel from "../components/common/Panel";
 import FeedbackShow from "../components/FeedbackShow";
 import FeedbackStatus from "../components/FeedbackStatus";
 import { Feedback } from "../models/Feedback";
+import { getAllFeedback } from "../api/service";
 
 const AdminPage: React.FC = () => {
     const [feedbackList, setFeedbackList] = useState<Feedback[]>([]);
     const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null);
 
-    const getAllFeedback = async () => {
-        try {
-            const response = await fetch('https://192.168.0.120:3000/api/feedback', {
-                method: 'GET',
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const result = await response.json();
-            setFeedbackList(result)
-        } catch (error) {
-            console.error('Error fetching feedback:', error);
+    const handleGetFeedback = async () => {
+        const result = await getAllFeedback();
+        if (result.success) {
+            setFeedbackList(result.data);
+        } else {
+            console.error(result.error);
         }
     };
 
+    const serverUrl = import.meta.env.PROD ? import.meta.env.VITE_SERVER_URL : "https://192.168.0.120:3000";
+
     const handleDeleteFeedback = async (feedbackId: Feedback["_id"]) => {
         try {
-            const response = await fetch(`https://192.168.0.120:3000/api/feedback/${feedbackId}`, {
+            const response = await fetch(`${serverUrl}/api/feedback`, {
                 method: 'DELETE',
             });
 
@@ -51,7 +47,7 @@ const AdminPage: React.FC = () => {
 
     const handleUpdateFeedback = async (feedbackId: Feedback["_id"], updatedData: Feedback) => {
         try {
-            const response = await fetch(`https://192.168.0.120:3000/api/feedback/${feedbackId}`, {
+            const response = await fetch(`${serverUrl}/api/feedback`, {
                 method: 'PUT', // or 'PATCH' depending on your API
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +72,7 @@ const AdminPage: React.FC = () => {
 
     const handleProcessReviewedFeedback = async () => {
         try {
-            const response = await fetch('https://192.168.0.120:3000/api/feedback/process', { method: 'POST' });
+            const response = await fetch(`${serverUrl}/api/feedback`, { method: 'POST' });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -143,7 +139,7 @@ const AdminPage: React.FC = () => {
     return (
         <div>
             <div className="flex space-x-2">
-                <Button primary onClick={getAllFeedback}>Get Feedback</Button>
+                <Button primary onClick={handleGetFeedback}>Get Feedback</Button>
                 <Button success onClick={handleProcessReviewedFeedback}>Process Feedback</Button>
             </div>
             {feedbackList.length > 0 && <Panel className={"mt-2"}>
