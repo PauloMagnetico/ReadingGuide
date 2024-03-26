@@ -1,4 +1,5 @@
 import { AviGrade } from "../models/enums";
+import { Feedback } from "../components/Feedback";
 
 type ApiResponseType = {
     success: boolean;
@@ -92,4 +93,41 @@ export const createFeedback = async (
         }
     };
 };
+
+export const getAllFeedback = async () => {
+    try {
+        const response = await fetch(`${serverUrl}/api/feedback`, {
+            method: 'GET',
+        });
+
+        const data = await response.json();    
+        return { success: true, data: data };
+    } catch (err) {
+        if (err instanceof Error) {
+            return { success: false, error: err.message };
+        } else {
+            return { success: false, error: "Error: Failed to send message to server." };
+        }
+    };
+}
+
+// export const deleteFeedback = async (feedbackId: Feedback["id"]) => {
+//     try {
+//         const response = await fetch(`${serverUrl}/api/feedback`, {
+//             method: 'DELETE',
+//         });
+
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+
+//         console.log("Feedback deleted successfully");
+
+//         // Update the state to filter out the deleted feedback
+//         setFeedbackList(feedbackList.filter(item => item._id !== feedbackId));
+
+//     } catch (error) {
+//         console.error('Error deleting feedback:', error);
+//     }
+// };
 

@@ -17,7 +17,7 @@ const AdminPage: React.FC = () => {
     const handleGetFeedback = async () => {
         const result = await getAllFeedback();
         if (result.success) {
-            setFeedbackList(result.data);
+            setFeedbackList(JSON.parse(result.data));
         } else {
             console.error(result.error);
         }
