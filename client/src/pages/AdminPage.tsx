@@ -8,7 +8,8 @@ import Panel from "../components/common/Panel";
 import FeedbackShow from "../components/FeedbackShow";
 import FeedbackStatus from "../components/FeedbackStatus";
 import { Feedback } from "../models/Feedback";
-import { getAllFeedback } from "../api/service";
+import { deleteFeedback, getAllFeedback, updateFeedback } from "../api/feedback";
+import { serverUrl } from "../api/serverUrl";
 
 const AdminPage: React.FC = () => {
     const [feedbackList, setFeedbackList] = useState<Feedback[]>([]);
@@ -16,62 +17,35 @@ const AdminPage: React.FC = () => {
 
     const handleGetFeedback = async () => {
         const result = await getAllFeedback();
-        console.log(result.data);
         if (result.success) {
             setFeedbackList(result.data);
-            console.log(result.data);
         } else {
             console.error(result.error);
         }
     };
 
-    const serverUrl = import.meta.env.PROD ? import.meta.env.VITE_SERVER_URL : "https://192.168.0.120:3000";
-
     const handleDeleteFeedback = async (feedbackId: Feedback["_id"]) => {
-        try {
-            const response = await fetch(`${serverUrl}/api/feedback`, {
-                method: 'DELETE',
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            console.log("Feedback deleted successfully");
-
-            // Update the state to filter out the deleted feedback
+        const result = await deleteFeedback(feedbackId);
+        if (result.success) {
             setFeedbackList(feedbackList.filter(item => item._id !== feedbackId));
-
-        } catch (error) {
-            console.error('Error deleting feedback:', error);
+        } else {
+            console.error(result.error);
         }
     };
 
     const handleUpdateFeedback = async (feedbackId: Feedback["_id"], updatedData: Feedback) => {
-        try {
-            const response = await fetch(`${serverUrl}/api/feedback`, {
-                method: 'PUT', // or 'PATCH' depending on your API
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updatedData), // Send the updated data as JSON
-            });
+        const result = await updateFeedback(feedbackId, updatedData);
+        if (result.success) {
+            setFeedbackList(feedbackList.map(item => item._id === feedbackId ? result.data! : item));
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
 
-            const updatedFeedback = await response.json();
-            console.log("Feedback updated successfully", updatedFeedback);
-
-            // Update the state with the updated feedback
-            setFeedbackList(feedbackList.map(item => item._id === feedbackId ? updatedFeedback : item));
-
-        } catch (error) {
-            console.error('Error updating feedback:', error);
+        } else {
+            console.error(result.error);
         }
     };
 
+
+    //TO DO, move to API
     const handleProcessReviewedFeedback = async () => {
         try {
             const response = await fetch(`${serverUrl}/api/feedback`, { method: 'POST' });

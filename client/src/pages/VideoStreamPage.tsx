@@ -4,8 +4,10 @@ import AviGradeShow from "../components/AviGradeShow";
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
-import { sendToChatGPT, extractTextFromImage } from "../api/service";
+import { sendToChatGPT } from "../api/chatApi";
+import { extractTextFromImage } from "../api/textApi";
 import { Severity, AviGrade } from "../models/enums";
+
 
 const StreamingPage: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement | null>(null);

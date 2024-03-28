@@ -3,7 +3,7 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import FeedbackBar from './FeedbackBar';
 import { useState } from "react";
-import { createFeedback } from '../api/service';
+import { createFeedback } from '../api/feedback';
 import { AviGrade, Severity } from '../models/enums';
 
 interface FeedbackProps {
