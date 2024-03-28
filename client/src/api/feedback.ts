@@ -3,20 +3,16 @@ import { serverUrl } from "./serverUrl";
 import { ApiResponseType } from "../models/apiResponse";
 import { Feedback } from "../models/Feedback";
 
-
 //TO DO; use the Feedback Type here 
 export const createFeedback = async (
     text: string,
     calculatedAviGrade: AviGrade,
     feedbackAviGrade: AviGrade
-): Promise<ApiResponseType> => {
-    const feedback = {
+): Promise<ApiResponseType<Feedback>> => {
+    const feedback: Partial<Feedback> = {
         text,
         feedbackAviGrade,
         calculatedAviGrade
-    };
-    if (!feedback) {
-        return { success: false, error: 'feedback' };
     };
 
     try {

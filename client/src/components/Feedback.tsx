@@ -22,11 +22,8 @@ const Feedback: React.FC<FeedbackProps> = ({
     const handlePositiveFeedback = async () => {
         const result = await createFeedback(extractedText, calculatedGrade, calculatedGrade);
         if (result.success) {
-            // If feedback creation was successful
             showSnackBar(Severity.success, 'Thanks for the positive feedback');
         } else {
-            // If there was an error in feedback creation
-            // Handle potential undefined result.error
             const errorMessage = result.error ? result.error : "Unknown error occurred";
             showSnackBar(Severity.error, 'Error submitting feedback: ' + errorMessage);
         }
