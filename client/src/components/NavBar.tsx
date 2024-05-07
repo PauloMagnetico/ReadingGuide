@@ -12,21 +12,21 @@ const NavBar = () => {
         <AppBar position="sticky">
             <Toolbar className='bg-palette_3'>
                 <Link
-                    className={"text-white mr-2"}
+                    className='text-white mr-2'
                     to='/infoPage'>
                     <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
+                        size='large'
+                        edge='start'
+                        color='inherit'
+                        aria-label='menu'
                     sx={{ mr: 2 }}
                     >
                         <InfoOutlinedIcon />
                     </IconButton>
                 </Link>
-                <Typography variant="h6">
+                <Typography variant='h6'>
                     Leeswijzer
-                </Typography >
+                </Typography>
             </Toolbar>
         </AppBar >
     );

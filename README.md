@@ -30,6 +30,6 @@ To get started, follow these steps:
 - [x] Host on Github Pages
 - [x] Host backend on google cloud run
 - [x] Configure environments to manage connection
-- [ ] Host mongoDB using Atlas
+- [x] Host mongoDB using Atlas
 - [ ] ~~Create submodules for independen deployments~~
 - [ ] Make backend only accessible through frontend
