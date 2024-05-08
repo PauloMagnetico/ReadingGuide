@@ -1,6 +1,9 @@
 server.cert
 server.key
 
+# test results
+coverage/
+
 # Logs
 logs
 *.log

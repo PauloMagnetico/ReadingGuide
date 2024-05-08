@@ -33,3 +33,4 @@ To get started, follow these steps:
 - [x] Host mongoDB using Atlas
 - [ ] ~~Create submodules for independen deployments~~
 - [ ] Make backend only accessible through frontend
+- [ ] set up testing following [this guide](https://dev.to/teyim/effortless-testing-setup-for-react-with-vite-typescript-jest-and-react-testing-library-1c48)
