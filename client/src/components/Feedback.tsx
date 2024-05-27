@@ -1,10 +1,11 @@
 import IconButton from '@mui/material/IconButton';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
-import FeedbackBar from './FeedbackBar';
+// import FeedbackBar from './FeedbackBar';
 import { useState } from "react";
 import { createFeedback } from '../api/feedback';
 import { AviGrade, Severity } from '../models/enums';
+import Dropdown, {OptionProps} from './common/Dropdown';
 
 interface FeedbackProps {
     extractedText: string,
@@ -12,12 +13,13 @@ interface FeedbackProps {
     showSnackBar: (severity: Severity, message: string) => void;
 };
 
-const Feedback: React.FC<FeedbackProps> = ({ 
-    extractedText, 
-    calculatedGrade, 
-    showSnackBar 
+const Feedback: React.FC<FeedbackProps> = ({
+    extractedText,
+    calculatedGrade,
+    showSnackBar
 }) => {
     const [showFeedbackBar, setShowFeedbackBar] = useState(false);
+    const [selection, setSelection] = useState<string | undefined>(undefined);
 
     const handlePositiveFeedback = async () => {
         const result = await createFeedback(extractedText, calculatedGrade, calculatedGrade);
@@ -34,6 +36,17 @@ const Feedback: React.FC<FeedbackProps> = ({
         //show the dropdown
     };
 
+    //translate the enum into dropdown options
+    const aviGradeOptions = Object.keys(AviGrade).map(key => ({
+        value: AviGrade[key as keyof typeof AviGrade],
+        label: AviGrade[key as keyof typeof AviGrade]
+    }));
+
+    //handle dropdown selectioin
+    const handleSelect = (option: OptionProps) => {
+        setSelection(option);
+    }
+
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -44,7 +57,7 @@ const Feedback: React.FC<FeedbackProps> = ({
                     <ThumbDownOffAltIcon />
                 </IconButton>
             </div>
-            {showFeedbackBar && <FeedbackBar />}
+            {showFeedbackBar && <Dropdown options={aviGradeOptions} value={selection} onChange={handleSelect} />}
         </div>
     )
 }
