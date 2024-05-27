@@ -48,7 +48,7 @@ const AdminPage: React.FC = () => {
     //TO DO, move to API
     const handleProcessReviewedFeedback = async () => {
         try {
-            const response = await fetch(`${serverUrl}/api/feedback`, { method: 'POST' });
+            const response = await fetch(`${serverUrl}/api/feedback/process`, { method: 'POST' });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
