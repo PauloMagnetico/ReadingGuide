@@ -8,14 +8,17 @@ import { sendToChatGPT } from "../api/chatApi";
 import { extractTextFromImage } from "../api/textApi";
 import { Severity, AviGrade } from "../models/enums";
 
-
 const StreamingPage: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const captureCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const boundingBoxCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const captureInterval = useRef<number | null>(null);
     const [extractedText, setExtractedText] = useState<string>('olalala');
-    const [calculatedAviGrade, setCalculatedAvigrade] = useState<AviGrade | null>(AviGrade.M3);
+
+    //in dev environment we set a default for helping with the flow
+    
+
+    const [calculatedAviGrade, setCalculatedAvigrade] = useState<AviGrade | null>(process.env.NODE_ENV === 'development' ? AviGrade.M3 : null);
     const [isStreaming, setIsStreaming] = useState(false);
     const [alertState, setAlertState] = useState({ severity: Severity.info, message: "Ready To Stream" })
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -213,6 +216,7 @@ const StreamingPage: React.FC = () => {
         setSnackbarOpen(true);
     };
 
+    //closing the Snackbar clears the result, so the feedback component is not visible, pretty bad design
     const handleCloseSnackbar = () => {
         setSnackbarOpen(false);
         clearResult();
