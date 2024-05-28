@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { GoChevronDown } from 'react-icons/go';
 import Panel from './Panel';
 
-export interface OptionProps {
-    value: string;
+export interface OptionProps<T> {
+    value: T;
     label: string;
 }
 
-interface DropdownProps {
-    options: OptionProps[];
-    value?: string;
-    onChange: (option: OptionProps) => void;
+interface DropdownProps<T> {
+    options: OptionProps<T>[];
+    value?: T;
+    onChange: (option: OptionProps<T>) => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange }) => {
+const Dropdown = <T,>({ options, value, onChange }: DropdownProps<T>) => {
     const [isOpen, setIsOpen] = useState(false);
     const divEl = useRef<HTMLDivElement>(null);
 
@@ -38,7 +38,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange }) => {
         setIsOpen(!isOpen);
     };
 
-    const handleOptionClick = (option: OptionProps) => {
+    const handleOptionClick = (option: OptionProps<T>) => {
         // CLOSE DROPDOWN
         setIsOpen(false);
         // WHAT OPTION DID THE USER CLICK ON???
@@ -50,7 +50,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, value, onChange }) => {
             <div
                 className="hover:bg-sky-100 rounded cursor-pointer p-1"
                 onClick={() => handleOptionClick(option)}
-                key={option.value}
+                key={String(option.value)}
             >
                 {option.label}
             </div>

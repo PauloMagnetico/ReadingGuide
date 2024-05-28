@@ -65,8 +65,8 @@ const Feedback: React.FC<FeedbackProps> = ({
 
 
     //handle dropdown selection
-    const handleSelect = (option: OptionProps) => {
-        setSelection(option.value as AviGrade);
+    const handleSelect = (option: OptionProps<AviGrade>) => {
+        setSelection(option.value);
     }
 
     return (
