@@ -213,6 +213,7 @@ const StreamingPage: React.FC = () => {
         setSnackbarOpen(true);
     };
 
+    //closing the Snackbar clears the result, so the feedback component is not visible, pretty bad design
     const handleCloseSnackbar = () => {
         setSnackbarOpen(false);
         clearResult();

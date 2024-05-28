@@ -5,7 +5,8 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import { useState } from "react";
 import { createFeedback } from '../api/feedback';
 import { AviGrade, Severity } from '../models/enums';
-import Dropdown, {OptionProps} from './common/Dropdown';
+import Dropdown, { OptionProps } from './common/Dropdown';
+import Button from './common/Button';
 
 interface FeedbackProps {
     extractedText: string,
@@ -19,45 +20,70 @@ const Feedback: React.FC<FeedbackProps> = ({
     showSnackBar
 }) => {
     const [showFeedbackBar, setShowFeedbackBar] = useState(false);
-    const [selection, setSelection] = useState<string | undefined>(undefined);
+
+    // we set the default of the dropdown to the calculated grade, this can be replaced
+    // by a fance spinner component in the future
+
+    const [selection, setSelection] = useState<AviGrade>(calculatedGrade);
 
     const handlePositiveFeedback = async () => {
-        const result = await createFeedback(extractedText, calculatedGrade, calculatedGrade);
+        const result = await createFeedback(
+            extractedText,
+            calculatedGrade,
+            calculatedGrade
+        );
         if (result.success) {
-            showSnackBar(Severity.success, 'Thanks for the positive feedback');
+            showSnackBar(Severity.success, 'Thanks for the feedback');
         } else {
             const errorMessage = result.error ? result.error : "Unknown error occurred";
             showSnackBar(Severity.error, 'Error submitting feedback: ' + errorMessage);
         }
     };
 
-    const handleNegativeFeedback = () => {
-        setShowFeedbackBar(true);
+    const showNegativeFeedback = () => {
         //show the dropdown
+        setShowFeedbackBar(true);
+    };
+
+    // creating a negative feedback with the selected avigrade
+    const handleNegativeFeedback = async () => {
+        const result = await createFeedback(extractedText, calculatedGrade, selection!);
+        if (result.success) {
+            showSnackBar(Severity.success, 'Thanks for the feedback');
+        } else {
+            const errorMessage = result.error ? result.error : "Unknown error occurred";
+            showSnackBar(Severity.error, 'Error submitting feedback: ' + errorMessage);
+        }
     };
 
     //translate the enum into dropdown options
-    const aviGradeOptions = Object.keys(AviGrade).map(key => ({
-        value: AviGrade[key as keyof typeof AviGrade],
-        label: AviGrade[key as keyof typeof AviGrade]
-    }));
+    const aviGradeOptions =
+        Object.values(AviGrade).map(value => ({
+            value: value,
+            label: value
+        }));
 
-    //handle dropdown selectioin
+
+    //handle dropdown selection
     const handleSelect = (option: OptionProps) => {
-        setSelection(option);
+        setSelection(option.value as AviGrade);
     }
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div className='flex justify-end'>
                 <IconButton onClick={handlePositiveFeedback} aria-label="thumbsUp" color="success">
                     <ThumbUpOffAltIcon />
                 </IconButton>
-                <IconButton onClick={handleNegativeFeedback} aria-label="thumbsDown" color="error">
+                <IconButton onClick={showNegativeFeedback} aria-label="thumbsDown" color="error">
                     <ThumbDownOffAltIcon />
                 </IconButton>
             </div>
-            {showFeedbackBar && <Dropdown options={aviGradeOptions} value={selection} onChange={handleSelect} />}
+            {showFeedbackBar &&
+                <div className='flex flex-row justify-between'>
+                    <Dropdown options={aviGradeOptions} value={selection} onChange={handleSelect} />
+                    <Button primary onClick={handleNegativeFeedback}>Submit</Button>
+                </div>}
         </div>
     )
 }
