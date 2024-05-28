@@ -7,8 +7,6 @@ import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import { sendToChatGPT } from "../api/chatApi";
 import { extractTextFromImage } from "../api/textApi";
 import { Severity, AviGrade } from "../models/enums";
-import { env } from "process";
-
 
 const StreamingPage: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
