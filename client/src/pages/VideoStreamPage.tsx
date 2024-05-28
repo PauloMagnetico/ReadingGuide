@@ -16,8 +16,6 @@ const StreamingPage: React.FC = () => {
     const [extractedText, setExtractedText] = useState<string>('olalala');
 
     //in dev environment we set a default for helping with the flow
-    
-
     const [calculatedAviGrade, setCalculatedAvigrade] = useState<AviGrade | null>(process.env.NODE_ENV === 'development' ? AviGrade.M3 : null);
     const [isStreaming, setIsStreaming] = useState(false);
     const [alertState, setAlertState] = useState({ severity: Severity.info, message: "Ready To Stream" })
