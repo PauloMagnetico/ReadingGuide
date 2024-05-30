@@ -19,12 +19,13 @@ const Feedback: React.FC<FeedbackProps> = ({
     calculatedGrade,
     showSnackBar
 }) => {
-    const [showFeedbackBar, setShowFeedbackBar] = useState(false);
+    const [showFeedbackDropdown, setshowFeedbackDropdown] = useState(false);
 
     // we set the default of the dropdown to the calculated grade, this can be replaced
     // by a fance spinner component in the future
 
     const [selection, setSelection] = useState<AviGrade>(calculatedGrade);
+    const [isNegativeLoading, setIsNegativeLoading] = useState<boolean>(false);
 
     const handlePositiveFeedback = async () => {
         const result = await createFeedback(
@@ -42,15 +43,18 @@ const Feedback: React.FC<FeedbackProps> = ({
 
     const showNegativeFeedback = () => {
         //show the dropdown
-        setShowFeedbackBar(true);
+        setshowFeedbackDropdown(true);
     };
 
     // creating a negative feedback with the selected avigrade
     const handleNegativeFeedback = async () => {
+        setIsNegativeLoading(true);
         const result = await createFeedback(extractedText, calculatedGrade, selection!);
         if (result.success) {
+            setIsNegativeLoading(false);
             showSnackBar(Severity.success, 'Thanks for the feedback');
         } else {
+            setIsNegativeLoading(false);
             const errorMessage = result.error ? result.error : "Unknown error occurred";
             showSnackBar(Severity.error, 'Error submitting feedback: ' + errorMessage);
         }
@@ -79,10 +83,10 @@ const Feedback: React.FC<FeedbackProps> = ({
                     <ThumbDownOffAltIcon />
                 </IconButton>
             </div>
-            {showFeedbackBar &&
+            {showFeedbackDropdown &&
                 <div className='flex flex-row justify-between'>
                     <Dropdown options={aviGradeOptions} value={selection} onChange={handleSelect} />
-                    <Button primary onClick={handleNegativeFeedback}>Submit</Button>
+                    <Button primary onClick={handleNegativeFeedback} loading={isNegativeLoading}>Submit</Button>
                 </div>}
         </div>
     )
