@@ -7,6 +7,8 @@ import { createFeedback } from '../api/feedback';
 import { AviGrade, Severity } from '../models/enums';
 import Dropdown, { OptionProps } from './common/Dropdown';
 import Button from './common/Button';
+import { GoSync } from 'react-icons/go';
+
 
 interface FeedbackProps {
     extractedText: string,
@@ -26,16 +28,20 @@ const Feedback: React.FC<FeedbackProps> = ({
 
     const [selection, setSelection] = useState<AviGrade>(calculatedGrade);
     const [isNegativeLoading, setIsNegativeLoading] = useState<boolean>(false);
+    const [isPositiveLoading, setIsPositiveLoading] = useState<boolean>(false);
 
     const handlePositiveFeedback = async () => {
+        setIsPositiveLoading(true)
         const result = await createFeedback(
             extractedText,
             calculatedGrade,
             calculatedGrade
         );
         if (result.success) {
+            setIsPositiveLoading(false);
             showSnackBar(Severity.success, 'Thanks for the feedback');
         } else {
+            setIsPositiveLoading(false);
             const errorMessage = result.error ? result.error : "Unknown error occurred";
             showSnackBar(Severity.error, 'Error submitting feedback: ' + errorMessage);
         }
@@ -77,7 +83,7 @@ const Feedback: React.FC<FeedbackProps> = ({
         <div>
             <div className='flex justify-end'>
                 <IconButton onClick={handlePositiveFeedback} aria-label="thumbsUp" color="success">
-                    <ThumbUpOffAltIcon />
+                    {isPositiveLoading ? <GoSync className="animate-spin" /> : <ThumbUpOffAltIcon />}
                 </IconButton>
                 <IconButton onClick={showNegativeFeedback} aria-label="thumbsDown" color="error">
                     <ThumbDownOffAltIcon />
