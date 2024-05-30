@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import { GoSync } from 'react-icons/go';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ type ButtonProps = {
   rounded?: boolean;
   disabled?: boolean;
   className?: string;
+  loading?: boolean;
   onClick: () => void;
 }
 
@@ -25,6 +27,7 @@ const Button: React.FC<ButtonProps> = ({
   outline,
   rounded,
   disabled,
+  loading,
   ...rest
 }) => {
   const classes = classNames(
@@ -48,9 +51,12 @@ const Button: React.FC<ButtonProps> = ({
     }
   );
 
+  //button should also be disabled when loading
+  const isDisabled = () => disabled || loading;
+
   return (
-    <button {...rest} className={classes} disabled={disabled}>
-      {children}
+    <button {...rest} disabled={isDisabled()} className={classes}>
+      {loading ? <GoSync className="animate-spin" /> : children}
     </button>
   );
 }
