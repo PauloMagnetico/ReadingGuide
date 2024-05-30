@@ -13,11 +13,16 @@ import FeedbackStatus from "../components/FeedbackStatus";
 import { Feedback } from "../models/Feedback";
 import { deleteFeedback, getAllFeedback, updateFeedback } from "../api/feedback";
 import { serverUrl } from "../api/serverUrl";
+import { GoSync } from 'react-icons/go';
 
 const AdminPage: React.FC = () => {
     const [feedbackList, setFeedbackList] = useState<Feedback[]>([]);
     const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null);
     const [isLoadingFeedback, setIsloadingFeedback] = useState<boolean>(false);
+  
+    //we use the id of the feedback to render the right button as loading
+    //deletingFeedback is the id of the feedback while it is waiting for the API
+    const [deletingFeedback, setDeletingFeedback] = useState<Feedback["_id"] | null>(null);
 
     const handleGetFeedback = async () => {
         setIsloadingFeedback(true);
@@ -32,10 +37,13 @@ const AdminPage: React.FC = () => {
     };
 
     const handleDeleteFeedback = async (feedbackId: Feedback["_id"]) => {
+        setDeletingFeedback(feedbackId);
         const result = await deleteFeedback(feedbackId);
         if (result.success) {
+            setDeletingFeedback(null);
             setFeedbackList(feedbackList.filter(item => item._id !== feedbackId));
         } else {
+            setDeletingFeedback(null);
             console.error(result.error);
         }
     };
@@ -110,7 +118,7 @@ const AdminPage: React.FC = () => {
             label: 'remove',
 
             render: (feedback) => <IconButton onClick={() => handleDeleteFeedback(feedback._id)} aria-label="delete" color="error">
-                <DeleteIcon />
+                {feedback._id === deletingFeedback ? <GoSync className="animate-spin" /> : <DeleteIcon />}
             </IconButton>
         }
     ];
