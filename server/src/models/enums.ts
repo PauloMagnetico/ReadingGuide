@@ -1,8 +1,8 @@
 enum feedbackStatus {
-    PENDING = 'pending',
-    APPROVED = 'approved',
-    REJECTED = 'rejected',
-    REVIEWED = 'reviewed'
+    PENDING = 'PENDING',
+    APPROVED = 'APPROVED',
+    REJECTED = 'REJECTED',
+    REVIEWED = 'REVIEWED'
 }
 
 enum aviGrades {
