@@ -6,6 +6,14 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 1.5s infinite',
+      },
       colors: {
         palette_1: '#CAD2C5',
         palette_2: '#84A98C',

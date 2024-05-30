@@ -1,5 +1,8 @@
+//TO DO, create feedbackList component
+
 import React, { useState } from "react";
 import Button from "../components/common/Button";
+import Skeleton from "../components/common/Skeleton";
 import Table, { TableProps } from "../components/common/Table";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -14,13 +17,17 @@ import { serverUrl } from "../api/serverUrl";
 const AdminPage: React.FC = () => {
     const [feedbackList, setFeedbackList] = useState<Feedback[]>([]);
     const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null);
+    const [isLoadingFeedback, setIsloadingFeedback] = useState<boolean>(false);
 
     const handleGetFeedback = async () => {
+        setIsloadingFeedback(true);
         const result = await getAllFeedback();
         if (result.success) {
             setFeedbackList(result.data);
+            setIsloadingFeedback(false);
         } else {
             console.error(result.error);
+            setIsloadingFeedback(false);
         }
     };
 
@@ -115,12 +122,13 @@ const AdminPage: React.FC = () => {
     return (
         <div>
             <div className="flex space-x-2">
-                <Button primary onClick={handleGetFeedback}>Get Feedback</Button>
+                <Button primary onClick={handleGetFeedback} loading={isLoadingFeedback}>Get Feedback</Button>
                 <Button success onClick={handleProcessReviewedFeedback}>Process Feedback</Button>
             </div>
-            {feedbackList.length > 0 && <Panel className={"mt-2"}>
-                <Table data={feedbackList} config={config} keyFn={keyFn} />
-            </Panel>}
+            <Panel className={"mt-2"}>
+                {!isLoadingFeedback && feedbackList.length > 0 && <Table data={feedbackList} config={config} keyFn={keyFn} />}
+                {isLoadingFeedback && <Skeleton times={6} className="h-10 w-full mt-2" />}
+            </Panel>
             {selectedFeedback && <FeedbackShow feedback={selectedFeedback} handleClose={handleClose} handleUpdateFeedback={handleUpdateFeedback} />}
         </div>
     )
