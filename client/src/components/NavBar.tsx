@@ -16,7 +16,7 @@ const NavBar = () => {
     }
     return (
         <div className='position-sticky bg-palette_3'>
-            <div className={`overflow-hidden transition-all duration-1000 ease-in-out ${isExpanded ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
+            <div className={`overflow-hidden transition-all duration-700 ease-in-out ${isExpanded ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
                 <InfoPage />
             </div>
             <div className='flex justify-center p-3'>
