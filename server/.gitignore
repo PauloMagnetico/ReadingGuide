@@ -2,3 +2,4 @@
 server.key
 server.cert
 node_modules
+src/controllers/reviewed_feedback.jsonl

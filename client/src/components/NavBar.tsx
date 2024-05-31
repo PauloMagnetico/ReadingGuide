@@ -1,36 +1,35 @@
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import Link from './common/Link';
+import { useState } from 'react';
+import InfoPage from '../pages/InfoPage';
+import { GoChevronUp } from 'react-icons/go';
+
+
 // need to use react-router-dom for github pages
 // import { Link } from 'react-router-dom';
 
 const NavBar = () => {
+    const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+    const handleClick = () => {
+        setIsExpanded(!isExpanded);
+    }
     return (
-        <AppBar position="sticky">
-            <Toolbar className='bg-palette_3'>
-                <Link
-                    className='text-white mr-2'
-                    to='/infoPage'>
-                    <IconButton
-                        size='large'
-                        edge='start'
-                        color='inherit'
-                        aria-label='menu'
-                    sx={{ mr: 2 }}
-                    >
-                        <InfoOutlinedIcon />
-                    </IconButton>
-                </Link>
-                <Typography variant='h6'>
+        <div className='position-sticky bg-palette_3'>
+            <div className={`overflow-hidden transition-all duration-1000 ease-in-out ${isExpanded ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
+                <InfoPage />
+            </div>
+            <div className='flex justify-center p-3'>
+                <div className='text-white mt-1 mr-4 cursor-pointer' onClick={handleClick}>
+                    {isExpanded ? <GoChevronUp /> : <InfoOutlinedIcon />}
+                </div>
+                <Typography className='text-white' variant='h6'>
                     Leeswijzer
                 </Typography>
-            </Toolbar>
-        </AppBar >
-    );
-};
+            </div>
+        </div>
+    )
+}
 
 export default NavBar;
 
