@@ -3,7 +3,6 @@ import NavBar from './components/NavBar';
 // import Route from "./components/common/Route";
 // switch to react-router-dom for github pages
 import Footer from "./components/Footer"
-import InfoPage from './pages/InfoPage';
 import AdminPage from './pages/AdminPage';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -15,7 +14,6 @@ function App() {
       <div className="p-3 box-border bg-palette_1">
         <Router basename="/">
           <Routes>
-            <Route path="/infoPage" element={<InfoPage />} />
             <Route path="/adminPage" element={<AdminPage />} />
             <Route path="/" element={<VideoStreamPage />} />
           </Routes>
