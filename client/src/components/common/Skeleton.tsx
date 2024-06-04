@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 
 interface SkeletonProps {
-    times: number,
-    className: string
+    times: number;
+    className: string;
 }
 
 function Skeleton({ times, className }: SkeletonProps) {

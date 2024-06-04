@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { IconButton, Snackbar, Alert } from "@mui/material";
+import Skeleton from "../components/common/Skeleton";
 import AviGradeShow from "../components/AviGradeShow";
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
@@ -8,7 +9,12 @@ import { sendToChatGPT } from "../api/chatApi";
 import { extractTextFromImage } from "../api/textApi";
 import { Severity, AviGrade } from "../models/enums";
 
-const StreamingPage: React.FC = () => {
+
+interface StreamingPageProps {
+    isLoading: boolean;
+}
+
+const StreamingPage: React.FC<StreamingPageProps> = ( {isLoading} ) => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const captureCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const boundingBoxCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -30,6 +36,14 @@ const StreamingPage: React.FC = () => {
             }
         };
     }, [isStreaming]);
+
+    useEffect(() => {
+        if(isLoading) {
+            setAlertState({ severity: Severity.warning, message: 'waiting for cloud backend to wake up'})
+        } else {
+            setAlertState({ severity: Severity.info, message: 'Ready to Stream'})
+        }
+    }, [isLoading])
 
     const setAlert = (newSeverity: Severity, newMessage: string) => {
         setAlertState({
@@ -225,10 +239,9 @@ const StreamingPage: React.FC = () => {
         setExtractedText('');
     };
 
-    return (
-        <div>
-            <Alert severity={alertState.severity} className='mb-2 rounded'>{alertState.message}</Alert>
-            <div className="bg-gray-100 my-1 relative rounded-xl border-double border-8 border-palette_4 shadow-md w-full h-0 pb-100percent">
+    const VideoCanvas = () => {
+        return (
+            <>
                 <video
                     className="absolute w-full h-full object-cover"
                     ref={videoRef}
@@ -255,6 +268,17 @@ const StreamingPage: React.FC = () => {
                         <TroubleshootIcon className="text-yellow-600" fontSize="large" />
                     </IconButton>}
                 </div>
+            </>
+        )
+    };
+
+    return (
+        <div>
+            <Alert severity={alertState.severity} className='mb-2 rounded'>{alertState.message}</Alert>
+            <div className="bg-gray-100 my-1 relative rounded-xl border-double border-8 border-palette_4 shadow-md w-full h-0 pb-100percent">
+                {isLoading ? <div className="absolute top-0 left-0 w-full h-full">
+                    <Skeleton times={1} className="absolute w-full h-full"/>
+                </div> : <VideoCanvas />}
             </div>
             {calculatedAviGrade && !isStreaming &&
                 <AviGradeShow
