@@ -52,7 +52,7 @@ app.post('/api/image', analyzeFrame);
 
 
 app.get('/', (req, res) => {
-  res.send('Hello from Express.js');
+  res.status(200).send('Server Running');
 });
 
 function createServer() {
