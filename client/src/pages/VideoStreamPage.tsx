@@ -9,17 +9,16 @@ import { sendToChatGPT } from "../api/chatApi";
 import { extractTextFromImage } from "../api/textApi";
 import { Severity, AviGrade } from "../models/enums";
 
-
 interface StreamingPageProps {
     isLoading: boolean;
 }
 
-const StreamingPage: React.FC<StreamingPageProps> = ( {isLoading} ) => {
+const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const captureCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const boundingBoxCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const captureInterval = useRef<number | null>(null);
-    const [extractedText, setExtractedText] = useState<string>('olalala');
+    const [extractedText, setExtractedText] = useState<string | null>(process.env.NODE_ENV === 'development' ? 'hahahaha' : null);
 
     //in dev environment we set a default for helping with the flow
     const [calculatedAviGrade, setCalculatedAvigrade] = useState<AviGrade | null>(process.env.NODE_ENV === 'development' ? AviGrade.M3 : null);
@@ -38,10 +37,10 @@ const StreamingPage: React.FC<StreamingPageProps> = ( {isLoading} ) => {
     }, [isStreaming]);
 
     useEffect(() => {
-        if(isLoading) {
-            setAlertState({ severity: Severity.warning, message: 'waiting for cloud backend to wake up'})
+        if (isLoading) {
+            setAlertState({ severity: Severity.warning, message: 'waiting for cloud backend to wake up' })
         } else {
-            setAlertState({ severity: Severity.info, message: 'Ready to Stream'})
+            setAlertState({ severity: Severity.info, message: 'Ready to Stream' })
         }
     }, [isLoading])
 
@@ -205,7 +204,7 @@ const StreamingPage: React.FC<StreamingPageProps> = ( {isLoading} ) => {
 
     const handleAnalyzeText = async () => {
         try {
-            const result = await sendToChatGPT(extractedText);
+            const result = await sendToChatGPT(extractedText!);
             if (result.success) {
                 setCalculatedAvigrade(result.data);
             } else {
@@ -239,52 +238,50 @@ const StreamingPage: React.FC<StreamingPageProps> = ( {isLoading} ) => {
         setExtractedText('');
     };
 
-    const VideoCanvas = () => {
-        return (
-            <>
-                <video
-                    className="absolute w-full h-full object-cover"
-                    ref={videoRef}
-                    autoPlay
-                    playsInline
-                    muted
-                ></video>
-                <canvas
-                    className="absolute w-full h-full opacity-0"
-                    ref={captureCanvasRef}>
-                </canvas>
-                <canvas
-                    className="absolute w-full h-full opacity-50"
-                    ref={boundingBoxCanvasRef}>
-                </canvas>
-                <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                    {!isStreaming && <IconButton onClick={handleStartStream} className="z-10">
-                        <PlayCircleFilledWhiteOutlinedIcon className="text-lime-600" fontSize="large" />
-                    </IconButton>}
-                    {isStreaming && !extractedText && <IconButton onClick={handleStopStream} className="z-10">
-                        <StopCircleOutlinedIcon className="text-red-600" fontSize="large" />
-                    </IconButton>}
-                    {isStreaming && extractedText && <IconButton onClick={handleAnalyzeText} className="z-10">
-                        <TroubleshootIcon className="text-yellow-600" fontSize="large" />
-                    </IconButton>}
-                </div>
-            </>
-        )
-    };
-
     return (
         <div>
             <Alert severity={alertState.severity} className='mb-2 rounded'>{alertState.message}</Alert>
             <div className="bg-gray-100 my-1 relative rounded-xl border-double border-8 border-palette_4 shadow-md w-full h-0 pb-100percent">
-                {isLoading ? <div className="absolute top-0 left-0 w-full h-full">
-                    <Skeleton times={1} className="absolute w-full h-full"/>
-                </div> : <VideoCanvas />}
+                {isLoading ? (
+                    <div className="absolute top-0 left-0 w-full h-full">
+                        <Skeleton times={1} className="absolute w-full h-full" />
+                    </div>
+                ) : (
+                    <div>
+                        <video
+                            className="absolute w-full h-full object-cover"
+                            ref={videoRef}
+                            autoPlay
+                            playsInline
+                            muted
+                        ></video>
+                        <canvas
+                            className="absolute w-full h-full opacity-0"
+                            ref={captureCanvasRef}>
+                        </canvas>
+                        <canvas
+                            className="absolute w-full h-full opacity-50"
+                            ref={boundingBoxCanvasRef}>
+                        </canvas>
+                        <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
+                            {!isStreaming && <IconButton onClick={handleStartStream} className="z-10">
+                                <PlayCircleFilledWhiteOutlinedIcon className="text-lime-600" fontSize="large" />
+                            </IconButton>}
+                            {isStreaming && !extractedText && <IconButton onClick={handleStopStream} className="z-10">
+                                <StopCircleOutlinedIcon className="text-red-600" fontSize="large" />
+                            </IconButton>}
+                            {isStreaming && extractedText && <IconButton onClick={handleAnalyzeText} className="z-10">
+                                <TroubleshootIcon className="text-yellow-600" fontSize="large" />
+                            </IconButton>}
+                        </div>
+                    </div>
+                )}
             </div>
             {calculatedAviGrade && !isStreaming &&
                 <AviGradeShow
                     showSnackBar={showSnackBar}
                     calculatedGrade={calculatedAviGrade}
-                    extractedText={extractedText} />}
+                    extractedText={extractedText!} />}
             <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleCloseSnackbar}>
                 <Alert severity={snackbarSeverity}>
                     {snackbarMessage}
