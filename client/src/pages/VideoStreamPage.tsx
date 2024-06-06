@@ -6,6 +6,7 @@ import { sendToChatGPT } from "../api/chatApi";
 import { extractTextFromImage } from "../api/textApi";
 import { Severity, AviGrade } from "../models/enums";
 import VideoStream from "../components/VideoStream";
+import StatusBar from "../components/StatusBar";
 
 interface StreamingPageProps {
     isLoading: boolean;
@@ -92,7 +93,6 @@ const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {
             });
         }
     };
-
 
     // removed the check if there is a stream, because we check the videoRef instead
     // to match the types. If anything is broken revert to the original
@@ -238,6 +238,7 @@ const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {
 
     return (
         <div>
+            {/* <StatusBar currentStep={3}/> */}
             <Alert severity={alertState.severity} className='mb-2 rounded'>{alertState.message}</Alert>
             <div className="bg-gray-100 my-1 relative rounded-xl border-double border-8 border-palette_4 shadow-md w-full h-0 pb-100percent">
                 {isLoading ? (
