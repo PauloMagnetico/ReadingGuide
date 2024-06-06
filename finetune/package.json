@@ -3,15 +3,28 @@
     "dotenv": "^16.4.5",
     "openai": "^4.48.2"
   },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "moduleFileExtensions": ["js", "jsx", "json", "node"],
+    "testMatch": ["**/__tests__/**/*.test.js"],
+    "testEnvironment": "node"
+  },
   "name": "finetune",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "This part contains the tools to automatically finetune a GPT model",
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  }
 }
