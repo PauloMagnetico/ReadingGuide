@@ -23,5 +23,18 @@ const fineTune = await openai.fineTuning.jobs.create({ training_file: file.id, m
 
 console.log(fineTune)
 
+// List 10 fine-tuning jobs
+//let page = await openai.fineTuning.jobs.list({ limit: 10 });
 
+// Retrieve the state of a fine-tune
+//let fineTune = await openai.fineTuning.jobs.retrieve('ftjob-abc123');
+
+// Cancel a job
+//let status = await openai.fineTuning.jobs.cancel('ftjob-abc123');
+
+// List up to 10 events from a fine-tuning job
+//let events = await openai.fineTuning.jobs.listEvents(fineTune.id, { limit: 10 });
+
+// Delete a fine-tuned model (must be an owner of the org the model was created in)
+//let model = await openai.models.delete('ft:gpt-3.5-turbo:acemeco:suffix:abc123');
 

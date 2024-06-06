@@ -90,7 +90,7 @@ const processReviewedFeedback = async (req: Request, res: Response) => {
                     },
                     {
                         role: "assistant",
-                        content: `avigrade = ${feedback.calculatedAviGrade}`
+                        content: feedback.calculatedAviGrade
                     }
                 ]
             };
