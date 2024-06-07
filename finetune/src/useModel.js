@@ -1,5 +1,5 @@
-const OpenAI = require('openai');
-const dotenv = require('dotenv');
+import OpenAI from 'openai';
+import dotenv from 'dotenv';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -23,7 +23,10 @@ const useModel = async(tekst) => {
         ],
         model: "ft:gpt-3.5-turbo-0125:personal::9X7VX4Be"
     });
-    console.log(completion.choices[0]);
+    return completion.choices[0].message.content
+    // console.log(completion.choices[0].message.content);
 }
+
+// useModel('voorbeeld met enkele moeilijke woorden')
 
 module.exports = { useModel };
