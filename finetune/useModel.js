@@ -21,7 +21,7 @@ const useModel = async(tekst) => {
                 content: tekst
             }
         ],
-        model: "ft:gpt-3.5-turbo-0125:personal::9X7VX4Be"
+        model: "ft:gpt-3.5-turbo-0125:personal:testset:9XncA7c1"
     });
     return completion.choices[0].message.content
     // console.log(completion.choices[0].message.content);
@@ -29,4 +29,4 @@ const useModel = async(tekst) => {
 
 // useModel('voorbeeld met enkele moeilijke woorden')
 
-module.exports = { useModel };
+export default useModel;
