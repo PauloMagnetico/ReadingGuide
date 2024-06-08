@@ -75,25 +75,37 @@ const updateFeedback = async (req: Request, res: Response) => {
 
 //endpoint that retrieves all reviewed feedback and writes it into a JSONL file in the format for finetuning ChatGPT
 const processReviewedFeedback = async (req: Request, res: Response) => {
+    //choose between chat-completion and prompt-completion
+    const { model } = req.body;
+    console.log(model)
+
     try {
         const feedbackList = await Feedback.find({ status: FeedbackReviewStatus.reviewed }).exec();
         const jsonLines = feedbackList.map(feedback => {
-            const dialog = {
-                messages: [
-                    {
-                        role: "system",
-                        content: "Dit is een chatbot die het AVI-leesniveau van teksten evalueert. De gebruiker zal een tekst verstrekken, en de chatbot zal reageren met een AVI-leesniveau uit de volgende lijst: ['AviStart', 'M3', 'E3', 'M4', 'E4', 'M5', 'E5', 'M6', 'E6', 'M7', 'E7', 'AviPlus']."
-                    },
-                    {
-                        role: "user",
-                        content: feedback.text
-                    },
-                    {
-                        role: "assistant",
-                        content: feedback.calculatedAviGrade
-                    }
-                ]
-            };
+            let dialog;
+            if (model === 'chat-completion') {
+                dialog = {
+                    messages: [
+                        {
+                            role: "system",
+                            content: "Dit is een chatbot die het AVI-leesniveau van teksten evalueert. De gebruiker zal een tekst verstrekken, en de chatbot zal reageren met een AVI-leesniveau uit de volgende lijst: ['AviStart', 'M3', 'E3', 'M4', 'E4', 'M5', 'E5', 'M6', 'E6', 'M7', 'E7', 'AviPlus']."
+                        },
+                        {
+                            role: "user",
+                            content: feedback.text
+                        },
+                        {
+                            role: "assistant",
+                            content: feedback.calculatedAviGrade
+                        }
+                    ]
+                };
+            } else if (model === 'prompt-completion') {
+                dialog = {
+                    prompt: `Wat is het AVI-leesniveau van volgende tekst? Antwoord enkel met een antwoord uit volgende lijst: ['AviStart', 'M3', 'E3', 'M4', 'E4', 'M5', 'E5', 'M6', 'E6', 'M7', 'E7', 'AviPlus'] tekst:${feedback.text}`,
+                    completion: feedback.calculatedAviGrade
+                }
+            }
             return JSON.stringify(dialog);
         }).join('\n');
 
@@ -113,15 +125,16 @@ const processReviewedFeedback = async (req: Request, res: Response) => {
                 }
 
                 // Optionally delete the file afterwards
-                // fs.unlink(filePath, unlinkError => {
-                //     if (unlinkError) console.error('Error deleting file:', unlinkError);
-                // });
+                fs.unlink(filePath, unlinkError => {
+                    if (unlinkError) console.error('Error deleting file:', unlinkError);
+                });
             });
         });
     } catch (err) {
         console.error('Error processing reviewed feedback:', err);
-        res.status(500).json({ message: "Error processing reviewed feedback", error: err});
+        res.status(500).json({ message: "Error processing reviewed feedback", error: err });
     }
+
 };
 
 export { getAllFeedback, createFeedback, deleteFeedback, updateFeedback, processReviewedFeedback };

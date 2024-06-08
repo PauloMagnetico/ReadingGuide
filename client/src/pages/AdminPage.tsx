@@ -12,6 +12,7 @@ import FeedbackShow from "../components/FeedbackShow";
 import FeedbackStatus from "../components/FeedbackStatus";
 import { Feedback } from "../models/Feedback";
 import { deleteFeedback, getAllFeedback, updateFeedback } from "../api/feedback";
+import ProcessReviewedFeedback from "../api/processReviewedFeedback";
 import { serverUrl } from "../api/serverUrl";
 import { GoSync } from 'react-icons/go';
 
@@ -19,7 +20,7 @@ const AdminPage: React.FC = () => {
     const [feedbackList, setFeedbackList] = useState<Feedback[]>([]);
     const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null);
     const [isLoadingFeedback, setIsloadingFeedback] = useState<boolean>(false);
-  
+
     //we use the id of the feedback to render the right button as loading
     //deletingFeedback is the id of the feedback while it is waiting for the API
     const [deletingFeedback, setDeletingFeedback] = useState<Feedback["_id"] | null>(null);
@@ -59,29 +60,13 @@ const AdminPage: React.FC = () => {
         }
     };
 
-
-    //TO DO, move to API
-    const handleProcessReviewedFeedback = async () => {
-        try {
-            const response = await fetch(`${serverUrl}/api/feedback/process`, { method: 'POST' });
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            // Process the response as a Blob
-            const blob = await response.blob();
-            const downloadUrl = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.download = "reviewed_feedback.jsonl";
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-            window.URL.revokeObjectURL(downloadUrl);
-        } catch (error) {
-            console.error('Error downloading the file:', error);
-        }
-    };
+    const handleProcessFeedbackChat = () => {
+        ProcessReviewedFeedback('chat-completion');
+    }
+    
+    const handleProcessFeedbackPrompt = () => {
+        ProcessReviewedFeedback('prompt-completion');
+    }
 
     const handleShowFeedback = (listItem: Feedback) => {
         setSelectedFeedback(listItem);
@@ -131,7 +116,8 @@ const AdminPage: React.FC = () => {
         <div>
             <div className="flex space-x-2">
                 <Button primary onClick={handleGetFeedback} loading={isLoadingFeedback}>Get Feedback</Button>
-                <Button success onClick={handleProcessReviewedFeedback}>Process Feedback</Button>
+                <Button success onClick={handleProcessFeedbackChat}>Process Feedback 3.5</Button>
+                <Button warning onClick={handleProcessFeedbackPrompt}>Process Feedback Babbage</Button>
             </div>
             <Panel className={"mt-2"}>
                 {!isLoadingFeedback && feedbackList.length > 0 && <Table data={feedbackList} config={config} keyFn={keyFn} />}
