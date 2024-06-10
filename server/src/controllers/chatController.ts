@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Request, Response } from 'express';
+import { querySystemPrompt, gptConfig } from '../utils/chatConfig';
 
 const sendToChatGPT = (req: Request, res: Response) => {
     const text = req.body.text;
@@ -9,22 +10,17 @@ const sendToChatGPT = (req: Request, res: Response) => {
     console.log('Chat GPT request recieved');
 
     axios.post(endpoint, {
-        model: "gpt-3.5-turbo",
         messages: [
             {
                 role: "system",
-                content: "je bepaalt het AVI leesniveau van teksten die je gegeven worden, enkel met een antwoord uit deze lijst ['AviStart', 'M3', 'E3', 'M4', 'E4', 'M5', 'E5', 'M6', 'E6', 'M7', 'E7', 'AviPlus']"
+                content: querySystemPrompt
             },
             {
                 role: "user",
                 content: text
             }
         ],
-        temperature: 0,
-        max_tokens: 20,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0
+        ...gptConfig
     }, {
         headers: {
             'Authorization': `Bearer ${apiKey}`,

@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { Request, Response } from 'express';
 import Feedback from '../models/feedback';
-import { AviGrade, FeedbackReviewStatus } from '../models/enums';
+import { FeedbackReviewStatus } from '../models/enums';
+import { systemPrompt } from '../utils/chatConfig';
 
 const getAllFeedback = async (req: Request, res: Response) => {
     try {
@@ -88,7 +89,7 @@ const processReviewedFeedback = async (req: Request, res: Response) => {
                     messages: [
                         {
                             role: "system",
-                            content: "Dit is een chatbot die het AVI-leesniveau van teksten evalueert. De gebruiker zal een tekst verstrekken, en de chatbot zal reageren met een AVI-leesniveau uit de volgende lijst: ['AviStart', 'M3', 'E3', 'M4', 'E4', 'M5', 'E5', 'M6', 'E6', 'M7', 'E7', 'AviPlus']."
+                            content: systemPrompt
                         },
                         {
                             role: "user",

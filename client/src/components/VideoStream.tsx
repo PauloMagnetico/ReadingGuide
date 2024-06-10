@@ -1,6 +1,4 @@
 import React, { RefObject } from 'react';
-
-
 import { IconButton } from "@mui/material";
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
 import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
