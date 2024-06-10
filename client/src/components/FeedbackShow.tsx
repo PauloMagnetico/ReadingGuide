@@ -39,14 +39,11 @@ const FeedbackShow: React.FC<FeedbackShowProps> = ({ feedback, handleClose, hand
 
     const actionBar =
         <div className="flex space-x-2">
-            <Button onClick={handleChangeStatus} success>Review Feedback</Button>
+            {feedback.status != FeedbackReviewStatus.reviewed && <Button onClick={handleChangeStatus} success>Review Feedback</Button>}
             <Button onClick={handleClose} primary>Close</Button>
-            <Button onClick={handleClose} primary outline className="text-blue-900">Save</Button>
         </div>
 
     const isRight: boolean = feedback.feedbackAviGrade === feedback.calculatedAviGrade;
-
-
 
     return (
         <Modal onClose={handleClose} actionBar={actionBar}>
