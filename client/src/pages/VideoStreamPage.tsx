@@ -6,7 +6,6 @@ import { sendToChatGPT } from "../api/chatApi";
 import { extractTextFromImage } from "../api/textApi";
 import { Severity, AviGrade } from "../models/enums";
 import VideoStream from "../components/VideoStream";
-import StatusBar from "../components/StatusBar";
 
 interface StreamingPageProps {
     isLoading: boolean;
