@@ -21,7 +21,12 @@ const useModel = async(tekst) => {
                 content: tekst
             }
         ],
-        model: "ft:gpt-3.5-turbo-0125:personal:testset:9XncA7c1"
+        model: "ft:gpt-3.5-turbo-0125:personal:testset:9XncA7c1",
+        temperature: 0,
+        max_tokens: 5,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0
     });
     return completion.choices[0].message.content
     // console.log(completion.choices[0].message.content);

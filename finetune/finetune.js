@@ -12,6 +12,7 @@ const openai = new OpenAI({
 
 // Path to your JSONL file
 const jsonlFilePath = 'reviewed_feedback.jsonl';
+const testFilePath = 'testset.jsonl';
 
 // Upload the JSONL file using fs.createReadStream()
 const file = await openai.files.create({
@@ -19,7 +20,15 @@ const file = await openai.files.create({
   purpose: 'fine-tune'
 });
 
-const fineTune = await openai.fineTuning.jobs.create({ training_file: file.id, model: 'gpt-3.5-turbo' });
+const testFile = await openai.files.create({
+  file: fs.createReadStream(testFilePath),
+  purpose: 'fine-tune'
+});
+
+const fineTune = await openai.fineTuning.jobs.create({ 
+  training_file: file.id, 
+  validation_file: testFile.id,
+  model: 'gpt-3.5-turbo' });
 
 console.log(fineTune)
 
