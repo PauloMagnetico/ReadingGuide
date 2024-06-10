@@ -131,7 +131,10 @@ const AdminPage: React.FC = () => {
                 {!isLoadingFeedback && feedbackList.length > 0 && <Table data={feedbackList} config={config} keyFn={keyFn} />}
                 {isLoadingFeedback && <Skeleton times={6} className="h-10 w-full mt-2" />}
             </Panel>
-            {selectedFeedback && <FeedbackShow feedback={selectedFeedback} handleClose={handleClose} handleUpdateFeedback={handleUpdateFeedback} />}
+            {selectedFeedback && <FeedbackShow 
+                feedback={selectedFeedback} 
+                handleClose={handleClose}
+                handleUpdateFeedback={handleUpdateFeedback} />}
         </div>
     )
 

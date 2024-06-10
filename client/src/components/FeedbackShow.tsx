@@ -18,7 +18,7 @@ const FeedbackShow: React.FC<FeedbackShowProps> = ({ feedback, handleClose, hand
     const [text, setText] = useState<string>(feedback.text);
 
 
-    const handleChangeStatus = () => {
+    const handleReviewFeedback = () => {
         const updatedFeedback = { ...feedback, status: FeedbackReviewStatus.reviewed };
         handleUpdateFeedback(feedback._id, updatedFeedback);
     };
@@ -39,7 +39,7 @@ const FeedbackShow: React.FC<FeedbackShowProps> = ({ feedback, handleClose, hand
 
     const actionBar =
         <div className="flex space-x-2">
-            {feedback.status != FeedbackReviewStatus.reviewed && <Button onClick={handleChangeStatus} success>Review Feedback</Button>}
+            {feedback.status != FeedbackReviewStatus.reviewed && <Button onClick={handleReviewFeedback} success>Review Feedback</Button>}
             <Button onClick={handleClose} primary>Close</Button>
         </div>
 
