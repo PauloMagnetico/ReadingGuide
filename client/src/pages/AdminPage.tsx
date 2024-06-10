@@ -13,7 +13,6 @@ import FeedbackStatus from "../components/FeedbackStatus";
 import { Feedback } from "../models/Feedback";
 import { deleteFeedback, getAllFeedback, updateFeedback } from "../api/feedback";
 import ProcessReviewedFeedback from "../api/processReviewedFeedback";
-import { serverUrl } from "../api/serverUrl";
 import { GoSync } from 'react-icons/go';
 
 const AdminPage: React.FC = () => {
@@ -63,7 +62,7 @@ const AdminPage: React.FC = () => {
     const handleProcessFeedbackChat = () => {
         ProcessReviewedFeedback('chat-completion');
     }
-    
+
     const handleProcessFeedbackPrompt = () => {
         ProcessReviewedFeedback('prompt-completion');
     }
@@ -86,8 +85,17 @@ const AdminPage: React.FC = () => {
             }
         },
         {
-            label: 'AviGrade(C/F)',
-            render: (feedback) => feedback.calculatedAviGrade + '/' + feedback.feedbackAviGrade
+            label: 'Calculated',
+            render: (feedback) => {
+                const isRight: boolean = feedback.feedbackAviGrade === feedback.calculatedAviGrade;
+                const className = `rounded-lg p-1 ${isRight ? 'bg-green-200' : 'bg-red-200'}`
+                return <div className={className}>{feedback.calculatedAviGrade}</div>
+            }
+
+        },
+        {
+            label: 'AviGrade',
+            render: (feedback) => feedback.feedbackAviGrade
         },
         {
             label: 'status',
