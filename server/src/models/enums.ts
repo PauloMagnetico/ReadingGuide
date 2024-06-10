@@ -1,12 +1,11 @@
-enum feedbackStatus {
-    PENDING = 'PENDING',
-    APPROVED = 'APPROVED',
-    REJECTED = 'REJECTED',
-    REVIEWED = 'REVIEWED'
+enum FeedbackReviewStatus {
+    pending = 'PENDING',
+    reviewed = 'REVIEWED',
+    processed = 'PROCESSED',
 }
 
-enum aviGrades {
-    AviStart = 'AviStart',
+enum AviGrade {
+    aviStart = 'AviStart',
     M3 = 'M3',
     E3 = 'E3',
     M4 = 'M4',
@@ -17,7 +16,7 @@ enum aviGrades {
     E6 = 'E6',
     M7 = 'M7',
     E7 = 'E7',
-    AviPlus = 'AviPlus'
+    aviPlus = 'AviPlus',
 }
 
-export { aviGrades, feedbackStatus };
+export { AviGrade, FeedbackReviewStatus };

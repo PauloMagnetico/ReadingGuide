@@ -1,13 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
-import { IconButton, Snackbar, Alert } from "@mui/material";
+import { Snackbar, Alert } from "@mui/material";
 import Skeleton from "../components/common/Skeleton";
 import AviGradeShow from "../components/AviGradeShow";
-import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
-import StopCircleOutlinedIcon from '@mui/icons-material/StopCircleOutlined';
-import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import { sendToChatGPT } from "../api/chatApi";
 import { extractTextFromImage } from "../api/textApi";
 import { Severity, AviGrade } from "../models/enums";
+import VideoStream from "../components/VideoStream";
+import StatusBar from "../components/StatusBar";
 
 interface StreamingPageProps {
     isLoading: boolean;
@@ -94,7 +93,6 @@ const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {
             });
         }
     };
-
 
     // removed the check if there is a stream, because we check the videoRef instead
     // to match the types. If anything is broken revert to the original
@@ -240,41 +238,24 @@ const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {
 
     return (
         <div>
+            {/* <StatusBar currentStep={3}/> */}
             <Alert severity={alertState.severity} className='mb-2 rounded'>{alertState.message}</Alert>
             <div className="bg-gray-100 my-1 relative rounded-xl border-double border-8 border-palette_4 shadow-md w-full h-0 pb-100percent">
                 {isLoading ? (
-                    <div className="absolute top-0 left-0 w-full h-full">
-                        <Skeleton times={1} className="absolute w-full h-full" />
+                    <div className="absolute w-full h-full">
+                        <Skeleton times={1} className="w-full h-full" />
                     </div>
                 ) : (
-                    <div>
-                        <video
-                            className="absolute w-full h-full object-cover"
-                            ref={videoRef}
-                            autoPlay
-                            playsInline
-                            muted
-                        ></video>
-                        <canvas
-                            className="absolute w-full h-full opacity-0"
-                            ref={captureCanvasRef}>
-                        </canvas>
-                        <canvas
-                            className="absolute w-full h-full opacity-50"
-                            ref={boundingBoxCanvasRef}>
-                        </canvas>
-                        <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                            {!isStreaming && <IconButton onClick={handleStartStream} className="z-10">
-                                <PlayCircleFilledWhiteOutlinedIcon className="text-lime-600" fontSize="large" />
-                            </IconButton>}
-                            {isStreaming && !extractedText && <IconButton onClick={handleStopStream} className="z-10">
-                                <StopCircleOutlinedIcon className="text-red-600" fontSize="large" />
-                            </IconButton>}
-                            {isStreaming && extractedText && <IconButton onClick={handleAnalyzeText} className="z-10">
-                                <TroubleshootIcon className="text-yellow-600" fontSize="large" />
-                            </IconButton>}
-                        </div>
-                    </div>
+                    <VideoStream
+                        videoRef={videoRef}
+                        captureCanvasRef={captureCanvasRef}
+                        boundingBoxCanvasRef={boundingBoxCanvasRef}
+                        isStreaming={isStreaming}
+                        extractedText={extractedText}
+                        handleStartStream={handleStartStream}
+                        handleStopStream={handleStopStream}
+                        handleAnalyzeText={handleAnalyzeText}
+                    />
                 )}
             </div>
             {calculatedAviGrade && !isStreaming &&

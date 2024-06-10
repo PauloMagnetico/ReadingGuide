@@ -1,14 +1,14 @@
 //TO DO, include TS in the creation, follow the steps that are done in the auth service
 import mongoose from 'mongoose';
-import { aviGrades, feedbackStatus } from './enums'; 
+import { AviGrade, FeedbackReviewStatus } from './enums'; 
 
 // Interface that describes the properties
 // that are reqyured to create a Feedback (for typescript)
 interface FeedbackAttrs {
     text: string;
-    calculatedAvigrade: aviGrades;
-    feedbackAvigrade: aviGrades;
-    status: feedbackStatus;
+    calculatedAviGrade: AviGrade;
+    feedbackAviGrade: AviGrade;
+    status: FeedbackReviewStatus;
 }
 
 // An interface that describes the properties
@@ -21,9 +21,9 @@ interface FeedbackModel extends mongoose.Model<FeedbackDoc> {
 // that a feedback document has
 interface FeedbackDoc extends mongoose.Document {
     text: string;
-    calculatedAvigrade: aviGrades;
-    feedbackAvigrade: aviGrades;
-    status: feedbackStatus;
+    calculatedAviGrade: AviGrade;
+    feedbackAviGrade: AviGrade;
+    status: FeedbackReviewStatus;
 };
 
 const feedbackSchema = new mongoose.Schema({
@@ -33,17 +33,17 @@ const feedbackSchema = new mongoose.Schema({
     },
     calculatedAviGrade: {
         type: String,
-        enum: aviGrades,
+        enum: AviGrade,
         required: true
     },
     feedbackAviGrade: {
         type: String,
-        enum: aviGrades,
+        enum: AviGrade,
         required: true
     },
     status: {
         type: String,
-        enum: feedbackStatus,
+        enum: FeedbackReviewStatus,
         required: true
     }
 });

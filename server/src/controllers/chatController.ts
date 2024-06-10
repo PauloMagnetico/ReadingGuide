@@ -12,8 +12,12 @@ const sendToChatGPT = (req: Request, res: Response) => {
         model: "gpt-3.5-turbo",
         messages: [
             {
+                role: "system",
+                content: "je bepaalt het AVI leesniveau van teksten die je gegeven worden, enkel met een antwoord uit deze lijst ['AviStart', 'M3', 'E3', 'M4', 'E4', 'M5', 'E5', 'M6', 'E6', 'M7', 'E7', 'AviPlus']"
+            },
+            {
                 role: "user",
-                content: `Antwoord enkel met een antwoord uit deze lijst ['AviStart', 'M3', 'E3', 'M4', 'E4', 'M5', 'E5', 'M6', 'E6', 'M7', 'E7', 'AviPlus']. avi-leesniveau van volgende tekst: "${text}"`
+                content: text
             }
         ],
         temperature: 0,
