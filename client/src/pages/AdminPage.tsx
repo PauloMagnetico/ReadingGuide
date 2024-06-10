@@ -94,7 +94,7 @@ const AdminPage: React.FC = () => {
 
         },
         {
-            label: 'AviGrade',
+            label: 'Feedback',
             render: (feedback) => feedback.feedbackAviGrade
         },
         {

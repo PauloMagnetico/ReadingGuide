@@ -9,7 +9,7 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-const useModel = async(tekst) => {
+const useModel = async(tekst, model) => {
     const completion = await openai.chat.completions.create({
         messages: [
             {
@@ -21,7 +21,7 @@ const useModel = async(tekst) => {
                 content: tekst
             }
         ],
-        model: "ft:gpt-3.5-turbo-0125:personal:testset:9XncA7c1",
+        model: model,
         temperature: 0,
         max_tokens: 5,
         top_p: 1,
