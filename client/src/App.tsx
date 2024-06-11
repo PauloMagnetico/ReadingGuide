@@ -30,7 +30,7 @@ const App = () => {
   return (
     <div className='w-full max-w-lg mx-auto'>
       <NavBar />
-      <div className="p-3 box-border bg-palette_1">
+      <div className="p-3 bg-palette_1">
         <Router basename="/">
           <Routes>
             <Route path="/adminPage" element={<AdminPage />} />

@@ -36,7 +36,7 @@ const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {
 
     useEffect(() => {
         if (isLoading) {
-            setAlertState({ severity: Severity.warning, message: 'waiting for cloud backend to wake up' })
+            setAlertState({ severity: Severity.warning, message: 'waiting up Server' })
         } else {
             setAlertState({ severity: Severity.info, message: 'Ready to Stream' })
         }
@@ -239,10 +239,10 @@ const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {
         <div>
             {/* <StatusBar currentStep={3}/> */}
             <Alert severity={alertState.severity} className='mb-2 rounded'>{alertState.message}</Alert>
-            <div className="bg-gray-100 my-1 relative rounded-xl border-double border-8 border-palette_4 shadow-md w-full h-0 pb-100percent">
+            <div className="bg-gray-100 my-1 relative rounded-xl shadow-md w-full h-0 pb-100percent">
                 {isLoading ? (
                     <div className="absolute w-full h-full">
-                        <Skeleton times={1} className="w-full h-full" />
+                        <Skeleton times={1} className="w-full h-full rounded-xl" />
                     </div>
                 ) : (
                     <VideoStream

@@ -52,9 +52,12 @@ export const querySystemPrompt = `Dit is een chatbot die het AVI-leesniveau van 
 //extended prompt that includes the rules for classification. Used for finetuning
 export const systemPrompt = `${querySystemPrompt} De regels voor classificatie: ${aviRules}`
 
+const baseModel = "gpt-3.5-turbo";
+const fineTunedModel = "ft:gpt-3.5-turbo-0125:personal::9YW4PilP"
+
 //parameters for the classification
 export const gptConfig = {
-    model: "gpt-3.5-turbo",
+    model: fineTunedModel,
     temperature: 0,
     max_tokens: 5,
     top_p: 1,
