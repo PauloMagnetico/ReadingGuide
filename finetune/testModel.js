@@ -2,7 +2,7 @@ import  useModel from './useModel.js';
 import fs from 'fs';
 import readline from 'readline';
 
-const fineTunedModel = "ft:gpt-3.5-turbo-0125:personal:testset:9XncA7c1"
+const fineTunedModel = "ft:gpt-3.5-turbo-0125:personal::9YW4PilP"
 const baseModel = "gpt-3.5-turbo"
 
 //Function to read a jsonl file into an array
