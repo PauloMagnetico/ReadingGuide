@@ -3,7 +3,7 @@ import Switch, { SwitchProps } from '@mui/material/Switch';
 import React from 'react';
 import { tailwindColors } from '../../../colorPalette'
 
-const MaterialUISwitch: React.FC<SwitchProps> = styled(Switch)(({ }) => ({
+const MaterialUISwitch: React.FC<SwitchProps> = styled(Switch)(() => ({
   width: 62,
   height: 34,
   padding: 7,

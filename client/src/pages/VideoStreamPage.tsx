@@ -9,6 +9,7 @@ import VideoStream from "../components/VideoStream";
 
 interface StreamingPageProps {
     isLoading: boolean;
+    feedbackMode: boolean;
 }
 
 const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {

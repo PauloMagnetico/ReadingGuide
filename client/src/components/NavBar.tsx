@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import InfoPage from '../pages/InfoPage';
 import { GoChevronUp } from 'react-icons/go';
 import Switch from './common/Switch'
@@ -9,8 +9,12 @@ import Switch from './common/Switch'
 
 // need to use react-router-dom for github pages
 // import { Link } from 'react-router-dom';
+interface NavBarProps {
+    feedbackMode: boolean,
+    handleSwitch: () => void
+}
 
-const NavBar = () => {
+const NavBar: React.FC<NavBarProps> = ({ feedbackMode, handleSwitch }) => {
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
     const handleClick = () => {
@@ -30,7 +34,9 @@ const NavBar = () => {
                         Leeswijzer
                     </Typography>
                 </div>
-                <Switch />
+                <Switch 
+                    checked={feedbackMode}
+                    onChange={handleSwitch}/>
             </div>
         </div>
     )
