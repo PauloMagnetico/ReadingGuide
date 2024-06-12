@@ -1,3 +1,5 @@
+import { tailwindColors } from './colorPalette'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -15,13 +17,13 @@ export default {
         shimmer: 'shimmer 1.5s infinite',
       },
       colors: {
-        palette_1: '#CAD2C5',
-        palette_2: '#84A98C',
-        palette_3: '#52796F',
-        palette_4: '#354F52',
-        palette_5: '#2F3E46',
-        palette_6: '#1C262A',
-        palette_7: '#0F1618'
+        palette_1: tailwindColors.palette_1,
+        palette_2: tailwindColors.palette_2,
+        palette_3: tailwindColors.palette_3,
+        palette_4: tailwindColors.palette_4,
+        palette_5: tailwindColors.palette_5,
+        palette_6: tailwindColors.palette_6,
+        palette_7: tailwindColors.palette_7
       },
       padding: {
         '100percent': '100%',
