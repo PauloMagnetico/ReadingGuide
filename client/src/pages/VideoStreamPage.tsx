@@ -6,13 +6,15 @@ import { sendToChatGPT } from "../api/chatApi";
 import { extractTextFromImage } from "../api/textApi";
 import { Severity, AviGrade } from "../models/enums";
 import VideoStream from "../components/VideoStream";
+import AviGradeResultBar from '../components/common/AviGradeResultBar';
+
 
 interface StreamingPageProps {
     isLoading: boolean;
     feedbackMode: boolean;
 }
 
-const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {
+const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading, feedbackMode }) => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const captureCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const boundingBoxCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -258,12 +260,21 @@ const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {
                     />
                 )}
             </div>
-            {calculatedAviGrade && !isStreaming &&
+            {calculatedAviGrade && !isStreaming && feedbackMode &&
                 <AviGradeShow
                     showSnackBar={showSnackBar}
                     calculatedGrade={calculatedAviGrade}
-                    extractedText={extractedText!} />}
-            <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleCloseSnackbar}>
+                    extractedText={extractedText!}
+                />}
+            {calculatedAviGrade && !feedbackMode &&
+                <AviGradeResultBar
+                    active={calculatedAviGrade}
+                />}
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={3000}
+                onClose={handleCloseSnackbar}
+            >
                 <Alert severity={snackbarSeverity}>
                     {snackbarMessage}
                 </Alert>
