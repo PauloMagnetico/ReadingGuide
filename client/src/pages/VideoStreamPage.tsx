@@ -36,7 +36,7 @@ const StreamingPage: React.FC<StreamingPageProps> = ({ isLoading }) => {
 
     useEffect(() => {
         if (isLoading) {
-            setAlertState({ severity: Severity.warning, message: 'waiting up Server' })
+            setAlertState({ severity: Severity.warning, message: 'waking up Server' })
         } else {
             setAlertState({ severity: Severity.info, message: 'Ready to Stream' })
         }
