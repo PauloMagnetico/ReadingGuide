@@ -9,7 +9,13 @@ import { useEffect, useState } from 'react';
 import { wakeUpServer } from './api/wakeUpServer';
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [feedbackMode, setFeedbackMode] = useState<boolean>(false)
+
+  //switch between feedback and user mode
+  const handleSwitch = () => {
+    setFeedbackMode(!feedbackMode)
+  }
 
   //Load the server, can take a while when container is sleeping
   const loadServer = async () => {
@@ -29,17 +35,26 @@ const App = () => {
 
   return (
     <div className='w-full max-w-lg mx-auto'>
-      <NavBar />
+      <NavBar
+        feedbackMode={feedbackMode}
+        handleSwitch={handleSwitch} />
       <div className="p-3 bg-palette_1">
         <Router basename="/">
           <Routes>
             <Route path="/adminPage" element={<AdminPage />} />
-            <Route path="/" element={<VideoStreamPage isLoading={isLoading} />} />
+            <Route
+              path="/"
+              element={
+                <VideoStreamPage
+                  isLoading={isLoading}
+                  feedbackMode={feedbackMode}
+                />}
+            />
           </Routes>
         </Router>
       </div>
       <Footer />
-    </div> 
+    </div>
   )
 }
 
