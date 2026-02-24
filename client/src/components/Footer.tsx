@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     return (
         <footer className="bg-palette_4 text-white py-6 bottom-0">
             <div className="container mx-auto flex justify-center items-center space-x-2">
-                <p>&copy; {new Date().getFullYear()} PaoloMagnetico</p>
+                <p>&copy; {new Date().getFullYear()} PauloMagnetico</p>
                 <a
                     href="https://github.com/PauloMagnetico/ReadingGuide_v2"
                     target="_blank"
