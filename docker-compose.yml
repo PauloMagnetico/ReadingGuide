@@ -4,8 +4,10 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    ports: 
+    ports:
       - "5173:5173"
+    environment:
+      - NODE_ENV=production
     volumes:
       - /usr/src/app/node_modules
       - ./client:/usr/src/app
@@ -13,8 +15,10 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    ports: 
+    ports:
       - "3000:3000"
+    env_file:
+      - ./server/.env
     volumes:
       - /usr/src/app/node_modules
       - ./server:/usr/src/app
