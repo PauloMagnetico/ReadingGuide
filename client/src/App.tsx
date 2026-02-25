@@ -1,10 +1,8 @@
 import VideoStreamPage from './pages/VideoStreamPage';
 import NavBar from './components/NavBar';
-// import Route from "./components/common/Route";
-// switch to react-router-dom for github pages
 import Footer from "./components/Footer"
 import AdminPage from './pages/AdminPage';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { wakeUpServer } from './api/wakeUpServer';
 
@@ -39,19 +37,17 @@ const App = () => {
         feedbackMode={feedbackMode}
         handleSwitch={handleSwitch} />
       <div className="p-3 bg-palette_1">
-        <Router basename="/">
-          <Routes>
-            <Route path="/adminPage" element={<AdminPage />} />
-            <Route
-              path="/"
-              element={
-                <VideoStreamPage
-                  isLoading={isLoading}
-                  feedbackMode={feedbackMode}
-                />}
-            />
-          </Routes>
-        </Router>
+        <Routes>
+          <Route path="/adminPage" element={<AdminPage />} />
+          <Route
+            path="/"
+            element={
+              <VideoStreamPage
+                isLoading={isLoading}
+                feedbackMode={feedbackMode}
+              />}
+          />
+        </Routes>
       </div>
       <Footer />
     </div>
