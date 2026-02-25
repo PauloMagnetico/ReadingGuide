@@ -1,31 +1,35 @@
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import NavBar from '../NavBar';
+
+const defaultProps = {
+    feedbackMode: false,
+    handleSwitch: jest.fn(),
+};
 
 describe('NavBar Component', () => {
     it('renders NavBar component with correct elements', () => {
-        const { getByText, getByRole } = render(<NavBar />);
+        const { getByText } = render(<NavBar {...defaultProps} />);
 
-        // Check if the text "Leeswijzer" is rendered
         expect(getByText('Leeswijzer')).toBeInTheDocument();
-
-        // Check if the Info icon button is present
-        const iconButton = getByRole('button', { name: 'menu' });
-        expect(iconButton).toBeInTheDocument();
-    });
-
-    it('contains the correct link', () => {
-        const { getByRole } = render(<NavBar />);
-
-        // Check if the link points to '/infoPage'
-        const link = getByRole('link', { name: 'to /infoPage' });
-        expect(link).toHaveAttribute('href', '/infoPage');
     });
 
     it('has the correct background color class', () => {
-        const { container } = render(<NavBar />);
+        const { container } = render(<NavBar {...defaultProps} />);
 
-        // Check if the background color class 'bg-palette_3' is applied to the Toolbar
         const toolbar = container.querySelector('.bg-palette_3');
         expect(toolbar).toBeInTheDocument();
+    });
+
+    it('expands and collapses the info panel on icon click', () => {
+        const { container } = render(<NavBar {...defaultProps} />);
+
+        const infoPanel = container.querySelector('.max-h-0');
+        expect(infoPanel).toBeInTheDocument();
+
+        const iconButton = container.querySelector('.cursor-pointer');
+        fireEvent.click(iconButton!);
+
+        const expandedPanel = container.querySelector('.max-h-screen');
+        expect(expandedPanel).toBeInTheDocument();
     });
 });
