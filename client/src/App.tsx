@@ -32,11 +32,11 @@ const App = () => {
   }, [])
 
   return (
-    <div className='w-full max-w-lg mx-auto'>
+    <div className='w-full max-w-lg mx-auto min-h-screen flex flex-col'>
       <NavBar
         feedbackMode={feedbackMode}
         handleSwitch={handleSwitch} />
-      <div className="p-3 bg-palette_1">
+      <div className="p-3 bg-palette_1 flex-grow">
         <Routes>
           <Route path="/adminPage" element={<AdminPage />} />
           <Route
