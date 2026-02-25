@@ -6,8 +6,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5173:5173"
-    environment:
-      - NODE_ENV=production
     volumes:
       - /usr/src/app/node_modules
       - ./client:/usr/src/app
