@@ -23,8 +23,8 @@ const config: configProps[] = [
     {
         aviGrade: AviGrade.M3,
         label: "M3",
-        activeColorClass: 'bg-blue-500',
-        passiveColorClass: 'bg-blue-200'
+        activeColorClass: 'bg-indigo-500',
+        passiveColorClass: 'bg-indigo-200'
     },
     {
         aviGrade: AviGrade.E3,
@@ -47,8 +47,8 @@ const config: configProps[] = [
     {
         aviGrade: AviGrade.M5,
         label: "M5",
-        activeColorClass: 'bg-blue-500',
-        passiveColorClass: 'bg-blue-200'
+        activeColorClass: 'bg-indigo-500',
+        passiveColorClass: 'bg-indigo-200'
     },
     {
         aviGrade: AviGrade.E5,

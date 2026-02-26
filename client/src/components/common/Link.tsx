@@ -18,7 +18,7 @@ const Link: React.FC<LinkProps> = ({
     const { navigate, currentPath } = useNavigation();
 
     const classes = classNames(
-        'text-blue-500',
+        'text-indigo-500',
         className,
         currentPath === to && activeClassName);
 

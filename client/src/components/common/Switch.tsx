@@ -49,7 +49,7 @@ const MaterialUISwitch: React.FC<SwitchProps> = styled(Switch)(() => ({
   '& .MuiSwitch-track': {
     opacity: 1,
     //color of the track when checked
-    backgroundColor: '#CAD2C5',
+    backgroundColor: tailwindColors.palette_1,
     borderRadius: 20 / 2,
   },
 }));

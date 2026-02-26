@@ -16,7 +16,7 @@ const Table: React.FC<TableProps> = ({ data, config, keyFn }) => {
         if (column.header) { 
             return <Fragment key={column.label}>{column.header()}</Fragment>;
         }
-        return <th className="bg-blue-100" key={column.label}>{column.label}</th>
+        return <th className="bg-indigo-100" key={column.label}>{column.label}</th>
     })
 
     const renderedRows = data.map((rowData, index) => {
@@ -25,7 +25,7 @@ const Table: React.FC<TableProps> = ({ data, config, keyFn }) => {
                 <td className="p-2" key={column.label}>{column.render(rowData)}</td>
             )
         });
-        const rowClass = index % 2 === 0 ? "border-b" : "border-b bg-blue-50";
+        const rowClass = index % 2 === 0 ? "border-b" : "border-b bg-indigo-50";
         return (
             <tr className={rowClass} key={keyFn(rowData)}>
                 {renderedCells}

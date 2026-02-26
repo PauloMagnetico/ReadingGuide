@@ -9,7 +9,7 @@ const ReviewStatus: React.FC<ReviewStatusProps> = ({ status }) => {
     const statusStyles: Record<FeedbackReviewStatus, string> = {
       [FeedbackReviewStatus.reviewed]: 'bg-green-200',
       [FeedbackReviewStatus.pending]: 'bg-yellow-200',
-      [FeedbackReviewStatus.processed]: 'bg-blue-200',
+      [FeedbackReviewStatus.processed]: 'bg-indigo-200',
     };
   
     const statusClassName = statusStyles[status] || 'bg-gray-100'; // Default background color

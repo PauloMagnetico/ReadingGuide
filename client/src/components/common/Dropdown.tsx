@@ -48,7 +48,7 @@ const Dropdown = <T,>({ options, value, onChange }: DropdownProps<T>) => {
     const renderedOptions = options.map((option) => {
         return (
             <div
-                className="hover:bg-sky-100 rounded cursor-pointer p-1"
+                className="hover:bg-indigo-100 rounded cursor-pointer p-1"
                 onClick={() => handleOptionClick(option)}
                 key={String(option.value)}
             >
