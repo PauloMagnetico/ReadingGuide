@@ -4,12 +4,19 @@ import fs from 'fs';
 
 // Conditionally apply HTTPS configuration for development only,
 // in production the server will be https
-const httpsConfig = process.env.NODE_ENV === 'development' ? {
-  https: {
-    key: fs.readFileSync('server.key'), 
-    cert: fs.readFileSync('server.cert'),
+const httpsConfig = (() => {
+  if (process.env.NODE_ENV !== 'development') return {};
+  try {
+    return {
+      https: {
+        key: fs.readFileSync('server.key'),
+        cert: fs.readFileSync('server.cert'),
+      }
+    };
+  } catch (e) {
+    return {};
   }
-} : {};
+})();
 
 // https://vitejs.dev/config/
 export default defineConfig({
