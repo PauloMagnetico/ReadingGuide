@@ -15,11 +15,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    environment:
-      - DB_URL=mongodb://mongodb:27017/readingguide
-      - NODE_ENV=production
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - GOOGLE_VISION_API_KEY=${GOOGLE_VISION_API_KEY}
+    env_file:
+      - ./server/.env
     depends_on:
       - mongodb
     volumes:
