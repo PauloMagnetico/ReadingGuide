@@ -1,4 +1,5 @@
-version: "3"
+name: readingguide
+
 services:
   web:
     build:
@@ -9,7 +10,7 @@ services:
     environment:
       - VITE_PROXY_TARGET=http://server:3000
     volumes:
-      - /usr/src/app/node_modules
+      - readingguide_web_modules:/usr/src/app/node_modules
       - ./client:/usr/src/app
   server:
     build:
@@ -22,13 +23,15 @@ services:
     depends_on:
       - mongodb
     volumes:
-      - /usr/src/app/node_modules
+      - readingguide_server_modules:/usr/src/app/node_modules
       - ./server:/usr/src/app
   mongodb:
     image: mongo:latest
     ports:
-    - "27017:27017"
+      - "27017:27017"
     volumes:
-    - mongodb_data:/data/db
+      - readingguide_mongodb:/data/db
 volumes:
-  mongodb_data:
+  readingguide_web_modules:
+  readingguide_server_modules:
+  readingguide_mongodb:
