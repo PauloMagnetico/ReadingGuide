@@ -59,10 +59,15 @@ function createServer() {
   if (process.env.NODE_ENV === 'production') {
     return http.createServer(app);
   } else {
-    const privateKey = fs.readFileSync('server.key', 'utf8');
-    const certificate = fs.readFileSync('server.cert', 'utf8');
-    const credentials = { key: privateKey, cert: certificate };
-    return https.createServer(credentials, app);
+    try {
+      const privateKey = fs.readFileSync('server.key', 'utf8');
+      const certificate = fs.readFileSync('server.cert', 'utf8');
+      const credentials = { key: privateKey, cert: certificate };
+      return https.createServer(credentials, app);
+    } catch (e) {
+      console.warn('SSL certs not found, falling back to HTTP');
+      return http.createServer(app);
+    }
   }
 }
 
