@@ -2,7 +2,7 @@ import { serverUrl } from "./serverUrl";
 
 export const wakeUpServer = async () => {
     try {
-        const response = await fetch(`${serverUrl}/`);
+        const response = await fetch(`${serverUrl}/api/getEnums`);
         if (!response.ok) {
             throw new Error(`Server returned status ${response.status}`);
         }
